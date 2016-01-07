@@ -1,0 +1,27 @@
+<div id="map"></div>
+<script type="text/javascript">
+//<![CDATA[
+    if (GBrowserIsCompatible()) {
+
+        function createMarker(point,html) {
+            var marker = new GMarker(point);
+
+            GEvent.addListener(marker, 'click', function() {
+            marker.openInfoWindowHtml(html);
+            });
+            return marker;
+        }
+
+        var map = new GMap2(document.getElementById("map"));
+        map.addControl(new GLargeMapControl());
+        map.addControl(new GMapTypeControl());
+        map.addMapType(G_PHYSICAL_MAP);
+        map.setCenter(new GLatLng(<?php echo $this->geoData['latitude']; ?>, <?php echo $this->geoData['longtitude']; ?>), 14, G_HYBRID_MAP);
+
+        var point = new GLatLng(<?php echo $this->geoData['latitude']; ?>, <?php echo $this->geoData['longtitude']; ?>);
+        var marker = createMarker(point, '<b><?php echo $this->event['name']; ?></b><br><?php echo $this->event['date']; ?>')
+        map.addOverlay(marker);
+        
+    }
+//]]>
+</script>

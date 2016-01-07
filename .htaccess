@@ -1,0 +1,31 @@
+DirectoryIndex index.php
+
+<IfModule mod_php5.c>
+    php_value memory_limit 256M
+    php_value max_execution_time 18000
+    php_flag magic_quotes_gpc off
+    php_flag session.auto_start off
+    php_flag zend.ze1_compatibility_mode Off
+</IfModule>
+
+<IfModule mod_security.c>
+    SecFilterEngine Off
+    SecFilterScanPOST Off
+</IfModule>
+
+<IfModule mod_ssl.c>
+    SSLOptions StdEnvVars
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?app=$1 [L,QSA]
+    ErrorDocument 403 /project/index.php
+    ErrorDocument 404 /project/index.php
+    ErrorDocument 500 /project/index.php
+</IfModule>
+
+Redirect 301 /public&eid=MjY http://www.croncase.com/view?eid=MjY

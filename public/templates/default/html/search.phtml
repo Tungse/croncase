@@ -1,0 +1,8 @@
+<div class="search">
+    <form name="search" action="search" method="POST" enctype="multipart/form-data">
+        <div id="input_block">
+            <input id="input_div" type="text" name="searchKeyword" size="18" value="<?php echo $this->searchKeyword; ?>" />
+            <input type="submit" id="submit_div" onclick="return checkInput('.search #input_div');" value="search" name="search" />
+        </div>
+    </form>
+</div>

@@ -1,0 +1,142 @@
+<script type="text/javascript" src="public/js/datepicker.js"></script>
+<div class="eventCreate boxes">
+    <form name="event" action="event" method="POST" enctype="multipart/form-data">
+        <div id="slideEvent">
+            <h2 class="current">main information <small><i> (*name and date required)</i></small></h2>
+            <div class="paneEvent" style="display:block">
+                <table id="eventTable">
+                    <tr>
+                        <td>attending</td>
+                        <td>
+                            <input type="radio" name="attend" value="sure" checked="checked" />&nbsp;<font color="#99EE99"><b>sure</b></font>&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="attend" value="maybe" />&nbsp;<font color="#FFEE99"><b>maybe</b></font>&nbsp;&nbsp;
+                            <input type="radio" name="attend" value="open" />&nbsp;<font color="#FF9999"><b>open</b></font>
+                        </td>
+                    </tr>
+                    <tr><td>event name</td>
+                        <td id="name_input"><input type="text" id="name" name="name" value="" onKeyDown="limitText(this.form.name,this.form.countdown,64);" onKeyUp="limitText(this.form.name,this.form.countdown,64);" size="50px" />
+                            <small><i><input id="word_count" readonly type="text" name="countdown" size="1" value="64"></i></small>
+                        </td></tr>
+                    <tr><td>address</td><td id="address_input"><input type="text" name="address" value="" size="55px" /></td></tr>
+                    <tr>
+                        <td>date</td>
+                        <td><input type="text" id="dateFrom" name="dateFrom" value="<?php echo date('d/m/Y'); ?>" size="10px">&nbsp;&nbsp;&nbsp;
+                            <select name="timeFrom">
+                                <?php echo $this->fromTimeOptions; ?>
+                            </select>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
+                            <select name="timeTo">
+                                <?php echo $this->toTimeOptions; ?>
+                            </select>&nbsp;&nbsp;
+                            <input type="checkbox" name="adjustable" value="fixed" />&nbsp;<small><i>(not changable)</i></small>
+                        </td>
+                    </tr>                   
+                </table>
+            </div>
+            <h2>descriptions</h2>
+            <div class="paneEvent">
+                <table id="eventTable">
+                    <tr><td>location</td><td id="location_input"><input type="text" name="location" value="" size="55px" /></td></tr>
+                    <tr><td>website</td><td id="website_input"><input type="text" name="website" value="" size="55px" /></td></tr>
+                    <tr><td>picture</td><td id="file_input"><input type="file" name="image" value="" /></td></tr>
+                    <tr><td>description</td><td id="description_input"><textarea name="description" rows="2" cols="47"></textarea></td></tr>
+                </table>
+            </div>
+            <h2>options</h2>
+            <div class="paneEvent">
+                <table id="eventTable">
+                    <tr>
+                        <td>repeating</td>
+                        <td>
+                            <input type="radio" name="repeating" value="no" checked="checked" />&nbsp;one time&nbsp;&nbsp;
+                            <input type="radio" name="repeating" value="daily" />&nbsp;daily,
+                            <select name="days">
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                            </select>&nbsp;days&nbsp;&nbsp;
+                            <input type="radio" name="repeating" value="weekly" />&nbsp;weekly,
+                            <select name="weeks">
+                                <option value="2">02</option>
+                                <option value="3">03</option>
+                                <option value="4">04</option>
+                                <option value="5">05</option>
+                                <option value="6">06</option>
+                                <option value="7">07</option>
+                                <option value="8">08</option>
+                                <option value="9">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>&nbsp;weeks
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>privacy</td>
+                        <td>
+                            <select name="privacy">
+                                <option value="0">visible only to me</option>
+                                <option value="1">visible to friends</option>
+                                <option value="2">visible to friends of friends</option>
+                                <option selected="selected" value="3">visible to everybody</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>joinable</td>
+                        <td><select name="joinable">
+                                <option value="0">invitation of me</option>
+                                <option value="1">invitation of attenders</option>
+                                <option selected="selected" value="2">open to join</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>searchable</td>
+                        <td><select name="searchable">
+                                <option value="0">not available</option>
+                                <option selected="selected" value="1">available</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!--<tr><td>Remember me</td><td><input type="checkbox" name="remember" value="1" checked="checked" />&nbsp&nbsp<small><i>(get a notafication before event)</i></small></td></tr>-->
+                </table>
+            </div>
+        </div>
+        <div id="create_event"><input id="submit_div" onclick="return checkEventInput();" type="submit" value="create event" name="create" /></div>
+        <div id="no_event"><input id="no_div" type="button" onclick="tb_remove();" value="no" id="cancel" name="cancel" /></div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(function() {
+            $('#dateFrom').jdPicker({date_format:"dd/mm/YYYY", show_week: 1});
+        });
+        $("#slideEvent").tabs("#slideEvent div.paneEvent", {tabs: 'h2', effect: 'slide', initialIndex: null});
+    });
+</script>

@@ -1,0 +1,47 @@
+<script type="text/javascript" src="public/js/box2.js"></script>
+<script type="text/javascript" src="public/js/iutil.js"></script>
+<script type="text/javascript" src="public/js/idrag.js"></script>
+<div class="calendar">
+    <p id="calendar_seperator">&nbsp;</p>
+    <div id="previous_week" onclick="showWeek(<?php echo $this->lastWeekIndex; ?>, <?php echo $this->user['uid']; ?>)"><br><<</div>
+    <div id="next_week" onclick="showWeek(<?php echo $this->nextWeekIndex; ?>, <?php echo $this->user['uid']; ?>)"><br>>></div>
+    <div id="day_name">
+        <div><?php echo $this->dayInfo['monday']; ?></div>
+        <div><?php echo $this->dayInfo['tuesday']; ?></div>
+        <div><?php echo $this->dayInfo['wednesday']; ?></div>
+        <div><?php echo $this->dayInfo['thursday']; ?></div>
+        <div><?php echo $this->dayInfo['friday']; ?></div>
+        <div id="weekend"><?php echo $this->dayInfo['saturday']; ?></div>
+        <div id="weekend"><?php echo $this->dayInfo['sunday']; ?></div>
+    </div>
+    <div id="day_content">
+
+        <?php echo $this->monday; ?>
+        <?php echo $this->tuesday; ?>
+        <?php echo $this->wednesday; ?>
+        <?php echo $this->thursday; ?>
+        <?php echo $this->friday; ?>
+        <?php echo $this->saturday; ?>
+        <?php echo $this->sunday; ?>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){   
+        $(".draggable").Draggable({
+            grid:[136,27], ghosting:true, opacity:0.6, containment:'parent',
+            onStop:function() {
+                var ueid = this.getAttribute('id');
+                var left = parseInt($(this).css("left"));
+                var margin = parseInt($(this).css("margin-left"));
+                $.post("event", {move: true, ueid: ueid, top: $(this).css("top"), height: $(this).css("height"), left: left}, function(html) {
+                    $("#" + ueid).css({'left':'0px', 'margin-left':left + margin + 'px'}), 
+                    $("#" + ueid + " #eventBoxName small").fadeOut('fast', function() {
+                        $("#" + ueid + " #eventBoxName small").remove(),
+                        $("#" + ueid + " #eventBoxName p").append(html);
+                    })
+                });
+            }
+        });
+    });
+</script>

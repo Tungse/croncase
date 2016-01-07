@@ -1,0 +1,68 @@
+<div class="friendAll boxes">
+    <div id="friendListAll">
+<?php switch($this->show) {
+    
+        case 'all': ?>
+            <div id="info" class="info_text"><h3>all friends of <?php echo $this->user['info']['firstname']; ?></h3></div>
+            <?php foreach($this->friendInfoArray as $friendInfoArray) { ?>
+                <div id="friend_block">
+                    <div id="friend_img"><a href="home?uid=<?php echo $friendInfoArray['uid']; ?>"><img src="data/users/<?php echo md5($friendInfoArray['uid']); ?>/avatar/thumbnail.jpg" title="<?php echo $friendInfoArray['name']; ?>" alt="<?php echo $friendInfoArray['name']; ?>"></a></div>
+                    <div id="friend_info">
+                        <p><a href="home?uid=<?php echo $friendInfoArray['uid']; ?>"><?php echo $friendInfoArray['name']; ?></a></p>
+                        <?php if($friendInfoArray['eventCount'] == 0) { ?>
+                            <p><small><i><?php echo $friendInfoArray['firstname']; ?> doesn't have any event in this week</i></small></p>
+                        <?php } elseif($friendInfoArray['eventCount'] == 1) { ?>
+                            <p><small><i><?php echo $friendInfoArray['firstname']; ?> attends <b><?php echo $friendInfoArray['eventCount']; ?></b> event this week</i></small></p>
+                        <?php } else { ?>
+                            <p><small><i><?php echo $friendInfoArray['firstname']; ?> attends <b><?php echo $friendInfoArray['eventCount']; ?></b> events this week</i></small></p>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } break;
+
+        case 'mutual': ?>
+            <div id="info" class="info_text"><h3>mutual friends with <?php echo $this->user['info']['firstname']; ?></h3></div>
+            <?php foreach($this->mutualFriendInfoArray as $mutualFriendInfoArray) {?>
+                <div id="friend_block">
+                    <div id="friend_img"><a href="home?uid=<?php echo $mutualFriendInfoArray['uid']; ?>"><img src="data/users/<?php echo md5($mutualFriendInfoArray['uid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $mutualFriendInfoArray['name']; ?>" title="<?php echo $mutualFriendInfoArray['name']; ?>"</a></div>
+                    <div id="friend_info">
+                        <p><a href="home?uid=<?php echo $mutualFriendInfoArray['uid']; ?>"><?php echo $mutualFriendInfoArray['name']; ?></a></p>
+                        <?php if($mutualFriendInfoArray['eventCount'] == 0) { ?>
+                            <p><small><i><?php echo $mutualFriendInfoArray['firstname']; ?> doesn't have any event in this week</i></small></p>
+                        <?php } elseif($mutualFriendInfoArray['eventCount'] == 1) { ?>
+                            <p><small><i><?php echo $mutualFriendInfoArray['firstname']; ?> attends <b><?php echo $mutualFriendInfoArray['eventCount']; ?></b> event this week</i></small></p>
+                        <?php } else { ?>
+                            <p><small><i><?php echo $mutualFriendInfoArray['firstname']; ?> attends <b><?php echo $mutualFriendInfoArray['eventCount']; ?></b> events this week</i></small></p>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } break;
+
+        case 'allRequest': ?>
+            <div id="info" class="info_text"><h3><?php echo count($this->friendRequest); ?> friend request</h3></div>
+            <?php foreach($this->friendRequest as $friendRequest) { ?>
+                <div id="friend_confirm_block" class="friendRequest<?php echo $friendRequest['request']; ?>">
+                    <div id="friend_img"><a href="home?uid=<?php echo $friendRequest['request']; ?>"><img src="data/users/<?php echo md5($friendRequest['request']); ?>/avatar/thumbnail.jpg" alt="<?php echo $friendRequest['name']; ?>" title="<?php echo $friendRequest['name']; ?>"</a></div>
+                    <div id="friend_info">
+                        <p><a href="home?uid=<?php echo $friendRequest['request']; ?>"><?php echo $friendRequest['name']; ?></a></p>
+                        <?php if($friendRequest['eventCount'] == 0) { ?>
+                            <p><small><i><?php echo $friendRequest['firstname']; ?> doesn't have any event in this week</i></small></p>
+                        <?php } elseif($friendRequest['eventCount'] == 1) { ?>
+                            <p><small><i><?php echo $friendRequest['firstname']; ?> attends <b><?php echo $friendRequest['eventCount']; ?></b> event this week</i></small></p>
+                        <?php } else { ?>
+                            <p><small><i><?php echo $friendRequest['firstname']; ?> attends <b><?php echo $friendRequest['eventCount']; ?></b> events this week</i></small></p>
+                        <?php } ?>
+                    </div>
+                    <form name="friendAction" id="friend_confirm" action="friend?uid=<?php echo $friendRequest['request']; ?>" method="POST" enctype="multipart/form-data">
+                        <div id="friend_submit"><input id="submit_div" type="button" onclick="confirmFriendRequest(<?php echo $friendRequest['request']; ?>)" value="confirm" name="confirm" /></div>
+                        <div id="cancel"><input id="no_div" type="button" onclick="denyFriendRequest(<?php echo $friendRequest['request']; ?>);" value="no" name="deny" /></div>
+                    </form>
+                </div>
+                <div class="confirm_status_message<?php echo $friendRequest['request']; ?> info_text" style="display:none;">you have added <?php echo $friendRequest['firstname']; ?> to your friendlist</div>
+                <div class="deny_status_message<?php echo $friendRequest['request']; ?> info_text" style="display:none;">you have denied <?php echo $friendRequest['firstname']; ?>'s friendship request</div>
+            <?php } break;
+    }
+?>
+    </div>
+    <div id="cancel_full"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+</div>

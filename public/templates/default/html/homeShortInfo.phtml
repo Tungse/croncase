@@ -1,0 +1,25 @@
+<div class="homeShortInfo">
+    <table id="info_table">
+        <tr>
+            <td>
+            <?php if($this->user['page']) { ?>
+                <small><i><a class="thickbox" href="profile?action=edit">edit profile</a></i></small>
+            <?php } ?>
+            </td>
+            <td id="name"><b><?php echo $this->user['info']['name']; ?></b></td>
+        </tr>
+        <tr><td>gender</td><td><?php echo $this->shortInfo['gender']; ?></td></tr>
+        <tr><td>relationship</td><td><?php echo $this->shortInfo['relationship']; ?></td></tr>
+        <tr><td>birthday</td><td><?php echo $this->shortInfo['birth']; ?></td></tr>
+        <tr><td>about me</td><td><?php echo parent::trimString($this->shortInfo['aboutMe'], 80, 'aboutMe', $this->user['uid']); ?></td></tr>
+        <?php if($this->user['page']) { ?>
+            <tr><td>page view</td><td><i><?php echo $this->shortInfo['view']; ?></i></td></tr>
+        <?php } else { ?>
+            <?php if($this->mutualEvents > 1) { ?>
+                <tr><td>events</td><td><i><b><a class="thickbox" href="event?action=mutual&uid=<?php echo $this->user['uid']; ?>&width=400&height=430"><?php echo $this->mutualEvents; ?> events in common</a></b></i></td></tr>
+            <?php } else { ?>
+                <tr><td>events</td><td><i><b><a class="thickbox" href="event?action=mutual&uid=<?php echo $this->user['uid']; ?>&width=400&height=430"><?php echo $this->mutualEvents; ?> event in common</a></b></i></td></tr>
+            <?php } ?>
+        <?php } ?>
+    </table>
+</div>

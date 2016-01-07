@@ -1,0 +1,64 @@
+<div class="comment">   
+    <?php if($this->user['page'] === false) { ?>
+        <form id="comment_write_holder" name="comment" action="comment?uid=<?php echo $this->user['uid']; ?>" method="POST" enctype="multipart/form-data">
+            <div id="comment_write_img">
+                <a href="home">
+                    <img src="data/users/<?php echo md5($this->user['myuid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $this->user['myinfo']['name']; ?>" title="<?php echo $this->user['myinfo']['name']; ?>">
+                </a>
+            </div>
+            <div id="comment_block">
+                <div id="input_div"><textarea id="textarea_input" name="comment" rows="2" cols="47"></textarea></div>
+                <input id="submit_div" type="submit" onclick="return checkInput('.comment #textarea_input');" value="public" name="saveComment" />
+            </div>
+        </form>
+    <?php } ?>
+    <div id="comment_holder">
+        <?php foreach($this->comments as $comment) { ?>
+            <div class="comment_block" id="comment<?php echo $comment['cid']; ?>">
+                <div id="comment_first">
+                    <div id="comment_img">
+                        <a href="home?uid=<?php echo $comment['wid']; ?>">
+                            <img src="data/users/<?php echo md5($comment['wid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $comment['name']; ?>" title="<?php echo $comment['name']; ?>">
+                        </a>
+                    </div>
+                    <div id="comment_content">
+                        <a href="home?uid=<?php echo $comment['wid']; ?>"><?php echo $comment['name']; ?></a>
+                        <?php echo $comment['comment']; ?>
+                        <p id="info"><small id="comment_created"><i><?php echo $comment['created']; ?></i></small>
+                        <small><a class="thickbox" href="comment?uid=<?php echo $this->user['uid']; ?>&cid=<?php echo $comment['cid']; ?>&sub&height=55&width=495">comment</a></small>
+                        <?php if($this->user['page'] || $comment['wid'] == $this->user['myuid']) { ?>
+                            <small><a class="thickbox" href="comment?uid=<?php echo $this->user['uid']; ?>&cid=<?php echo $comment['cid']; ?>&delete&height=25&width=285">delete</a></small>
+                        <?php } ?>
+                        </p>
+                    </div>
+                </div>
+                <?php if(count($comment['commentSub']) > 0) { ?>
+                    <p id="sub_header">&nbsp;</p>
+                <?php } ?>
+                <?php foreach($comment['commentSub'] as $commentSub) { ?>
+                    <div class="comment_sub_block" id="subComment<?php echo $commentSub['id']; ?>">
+                        <div id="comment_sub_img">
+                            <a href="home?uid=<?php echo $commentSub['wid']; ?>">
+                                <img src="data/users/<?php echo md5($commentSub['wid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $commentSub['name']; ?>" title="<?php echo $commentSub['name']; ?>">
+                            </a>
+                        </div>
+                        <div id="comment_content">
+                            <a href="home?uid=<?php echo $commentSub['wid']; ?>"><?php echo $commentSub['name']; ?></a>
+                            <?php echo $commentSub['comment']; ?>
+                            <p id="info"><small  id="comment_created"><i><?php echo $commentSub['created']; ?></i></small>
+                            <?php if($this->user['page'] || $commentSub['wid'] == $this->user['myuid']) { ?>
+                                <small>
+                                    <a class="thickbox" href="comment?uid=<?php echo $this->user['uid']; ?>&id=<?php echo $commentSub['id']; ?>&deletesub&height=25&width=285">delete</a>
+                                </small>
+                            <?php } ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
+    <?php if($this->lastComment != false) { ?>
+        <div id="show_comment_more" onclick="showCommentMore(<?php echo $this->lastComment; ?>);"><b>show more comments</b></div>
+    <?php } ?>
+</div>

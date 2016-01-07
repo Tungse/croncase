@@ -1,0 +1,35 @@
+<div class="commentEvent boxes">
+    <form name="commentEvent" action="" method="POST" enctype="multipart/form-data">
+        <div id="event_comment_input">
+            <textarea id="comment" name="comment" rows="2" cols="66"></textarea>
+            <input id="submit_div" type="button" onclick="saveEventComment(<?php echo (int)$_GET['eid']; ?>);"id="submit"value="public" />
+        </div>
+        <div id="event_comment_outer">
+            <div id="event_comment_inner">
+                <?php foreach($this->commentEvent as $commentEvent) { ?>
+                    <div id="comment_block">
+                        <div id="comment_img">
+                            <a href="home?uid=<?php echo $commentEvent['wid']; ?>">
+                                <img src="data/users/<?php echo md5($commentEvent['wid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $commentEvent['name']; ?>" title="<?php echo $commentEvent['name']; ?>">
+                            </a>
+                        </div>
+                        <div id="comment_content">
+                            <a href="home?uid=<?php echo $commentEvent['wid']; ?>"><?php echo $commentEvent['name']; ?></a>
+                            <?php echo $commentEvent['comment']; ?>
+                            <p id="info"><small id="comment_created"><i><?php echo $commentEvent['created']; ?></i></small>
+                            <?php if($commentEvent['wid'] == $this->user['myuid']) { ?>
+                                <small><a class="thickbox2" href="comment?uid=<?php echo $this->user['uid']; ?>&ecid=<?php echo $commentEvent['ecid']; ?>&delete&event&height=25&width=295">delete</a></small>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </form>
+    <i onclick="hideEventComment();" id="hide_comment">back to event</i>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.post("comment?event", {readedEventComment: true, eid: <?php echo (int)$_GET['eid']; ?>})
+    });
+</script>

@@ -1,0 +1,195 @@
+<div class="privatemsg">
+    <div id="privatemsg_left_side">
+        <h3 onclick="showUnreadPrivatemsg();">unread messages (<?php echo count($this->privatemsg['unread']); ?>)</h3>
+        <h3 onclick="showReadedPrivatemsg();">in coming messages (<?php echo count($this->privatemsg['readed']); ?>)</h3>
+        <h3 onclick="showSendedPrivatemsg();">sended messages (<?php echo count($this->privatemsg['sended']); ?>)</h3>
+    </div>
+    <div id="privatemsg_content">
+        <div id="unread_message" style="display:block;">
+            <div class="info_text">
+                <h3>unreaded messages (<?php echo count($this->privatemsg['unread']); ?>)</h3>
+                <div id="next_previous_button">&nbsp;
+                <?php if(count($this->privatemsg['unread']) > 1) { ?>
+                    <small onclick="previousUnreadPrivatemsg();">previous</small>&nbsp;&nbsp;<small onclick="nextUnreadPrivatemsg();">next</small>
+                <?php } ?>
+                </div>
+            </div>
+            <?php $i = 0; $iDiv  = 0; foreach($this->privatemsg['unread'] as $unreadPrivatemsg) { ?>
+                <?php if($i === 0 || $i%1 == 0) { ?>
+                <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="privatemsg_unread_class pm<?php echo $unreadPrivatemsg['pid']; ?>" id="unread<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:auto;">
+                <?php $iDiv++; } ?>
+                <div id="privatemsg_block">
+                    <div id="privatemsg_first">
+                        <div id="writer_image">
+                            <a href="home?uid=<?php echo $unreadPrivatemsg['writer']; ?>"><img src="data/users/<?php echo md5($unreadPrivatemsg['writer']); ?>/avatar/thumbnail.jpg" alt="<?php echo $unreadPrivatemsg['name']; ?>" title="<?php echo $unreadPrivatemsg['name']; ?>"></a>
+                        </div>
+                        <input type="hidden" id="pid" value="<?php echo $unreadPrivatemsg['pid']; ?>">
+                        <div id="privatemsg_holder">
+                            <p>
+                                <small>subject:&nbsp;</small><i id="privatemsg_subject"><?php echo $unreadPrivatemsg['subject']; ?></i>
+                                <span id="info"><small id="privatemsg_created"><i><?php echo $unreadPrivatemsg['created']; ?></i></small></span>
+                            </p>
+                            
+                            <p><small>from:&nbsp;</small><a href="home?uid=<?php echo $unreadPrivatemsg['writer']; ?>"><?php echo $unreadPrivatemsg['name']; ?></a><p>
+                            <p><?php echo $unreadPrivatemsg['content']; ?>&nbsp;
+                                <small><a class="thickbox" href="privatemsg?action=delete&pid=<?php echo $unreadPrivatemsg['pid']; ?>&height=25&width=285"><i>(delete)</i></a></small>
+                            </p>
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                    <?php if(count($unreadPrivatemsg['privatemsgSub']) > 0) { ?>
+                        <p id="sub_header">&nbsp;</p>
+                    <?php } ?>
+                    <?php foreach($unreadPrivatemsg['privatemsgSub'] as $unreadPrivatemsgSub) { ?>
+                        <div id="privatemsg_sub">
+                            <div id="writer_image_sub">
+                                <a href="home?uid=<?php echo $unreadPrivatemsgSub['writer']; ?>"><img src="data/users/<?php echo md5($unreadPrivatemsgSub['writer']); ?>/avatar/thumbnail.jpg" alt="<?php echo $unreadPrivatemsgSub['name']; ?>" title="<?php echo $unreadPrivatemsgSub['name']; ?>"></a>
+                            </div>
+                            <div id="privatemsg_sub_holder">
+                                <p id="privatemsg_sub_content"><small>from:&nbsp;</small><a href="home?uid=<?php echo $unreadPrivatemsgSub['writer']; ?>"><?php echo $unreadPrivatemsgSub['name']; ?></a>
+                                    <span id="info"><small id="privatemsg_created"><i><?php echo $unreadPrivatemsgSub['created']; ?></i></small></span>
+                                </p>
+                                <p><?php echo $unreadPrivatemsgSub['content']; ?></p>                               
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+                <h3 id="privatemsg_sended<?php echo $i; ?>" style="display:none;">your message has been send</h3>
+                <div class="privatemsg_answer" id="answer<?php echo $i; ?>" style="display:block;">
+                    <form id="privatemsg_form" name="privatemsg" action="" method="POST" enctype="multipart/form-data">
+                        <div id="privatemsg_textarea"><textarea id="privatemsg" name="privatemsg" rows="3" cols="65"></textarea></div>
+                        <div id="privatemsg_submit"><input id="submit_div" type="button" onclick="return checkPrivatemsgAnwserInput(<?php echo $i; ?>, 'unread_message', <?php echo $unreadPrivatemsg['writer']; ?>, <?php echo $unreadPrivatemsg['pid']; ?>);" value="answer" /></div>
+                    </form>
+                </div>
+                <?php if($i === 1 || $i%1 == 0) { ?>
+                    </div>
+                <?php } ?>
+            <?php $i++; } ?>
+        </div>
+        <div id="readed_message" style="display:none;">
+            <div class="info_text">
+                <h3>in coming messages (<?php echo count($this->privatemsg['readed']); ?>)</h3>
+                <div id="next_previous_button">&nbsp;
+                <?php if(count($this->privatemsg['readed']) > 3) { ?>
+                    <small onclick="previousReadedPrivatemsg();">previous</small>&nbsp;&nbsp;<small onclick="nextReadedPrivatemsg();">next</small>
+                <?php } ?>
+                </div>
+            </div>
+            <?php $i = 0; $iDiv  = 0; foreach($this->privatemsg['readed'] as $readedPrivatemsg) { ?>
+                <?php if($i === 0 || $i%3 == 0) { ?>
+                <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="privatemsg_readed_class" id="readed<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:auto;">
+                <?php $iDiv++; } ?>
+                <div id="privatemsg_block" class="pm<?php echo $readedPrivatemsg['pid']; ?>">
+                    <div id="privatemsg_first">
+                        <div id="writer_image">
+                            <a href="home?uid=<?php echo $readedPrivatemsg['writer']; ?>"><img src="data/users/<?php echo md5($readedPrivatemsg['writer']); ?>/avatar/thumbnail.jpg" alt="<?php echo $readedPrivatemsg['name']; ?>" title="<?php echo $readedPrivatemsg['name']; ?>"></a>
+                        </div>
+                        <div id="privatemsg_holder">
+                            <p>
+                                <small>subject:&nbsp;</small><i id="privatemsg_subject"><?php echo $readedPrivatemsg['subject']; ?></i>
+                                <span id="info"><small id="privatemsg_created"><i><?php echo $readedPrivatemsg['created']; ?></i></small></span>
+                            </p>
+                            <p><small>from:&nbsp;</small><a href="home?uid=<?php echo $readedPrivatemsg['writer']; ?>"><?php echo $readedPrivatemsg['name']; ?></a>
+                            </p>
+                            <p><?php echo $readedPrivatemsg['content']; ?>&nbsp;
+                                <small><a class="thickbox" href="privatemsg?action=delete&pid=<?php echo $readedPrivatemsg['pid']; ?>&height=25&width=285"><i>(delete)</i></a></small>
+                            </p>
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                    <?php if(count($readedPrivatemsg['privatemsgSub']) > 0) { ?>
+                        <p id="sub_header">&nbsp;</p>
+                    <?php } ?>
+                    <?php foreach($readedPrivatemsg['privatemsgSub'] as $readedPrivatemsgSub) { ?>
+                        <div id="privatemsg_sub">
+                            <div id="writer_image_sub">
+                                <a href="home?uid=<?php echo $readedPrivatemsgSub['writer']; ?>"><img src="data/users/<?php echo md5($readedPrivatemsgSub['writer']); ?>/avatar/thumbnail.jpg" alt="<?php echo $readedPrivatemsgSub['name']; ?>" title="<?php echo $readedPrivatemsgSub['name']; ?>"></a>
+                            </div>
+                            <div id="privatemsg_sub_holder">
+                                <p id="privatemsg_sub_content"><small>from:&nbsp;</small><a href="home?uid=<?php echo $readedPrivatemsgSub['writer']; ?>"><?php echo $readedPrivatemsgSub['name']; ?></a>
+                                    <span id="info"><small id="privatemsg_created"><i><?php echo $readedPrivatemsgSub['created']; ?></i></small></span>
+                                </p>
+                                <p><?php echo $readedPrivatemsgSub['content']; ?></p>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+                <h3 id="privatemsg_sended<?php echo $i; ?>" style="display:none;">your message has been send</h3>
+                <div class="privatemsg_answer pm<?php echo $readedPrivatemsg['pid']; ?>" id="answer<?php echo $i; ?>" style="display:block;">
+                    <form id="privatemsg_form" name="privatemsg" action="" method="POST" enctype="multipart/form-data">
+                        <div id="privatemsg_textarea"><textarea id="privatemsg" name="privatemsg" rows="3" cols="65"></textarea></div>
+                        <div id="privatemsg_submit"><input id="submit_div" type="button" onclick="return checkPrivatemsgAnwserInput(<?php echo $i; ?>, 'readed_message', <?php echo $readedPrivatemsg['writer']; ?>, <?php echo $readedPrivatemsg['pid']; ?>);" value="answer" /></div>
+                    </form>
+                </div>
+                <?php if($i === 2 || $i%3 == 2) { ?>
+                    </div>
+                <?php } ?>              
+            <?php $i++; } ?>
+            <?php if(($i < 2 && $i > 0) || $i%3 != 0) { echo '</div>'; } ?>
+        </div>
+        <div id="sended_message" style="display:none;">
+            <div class="info_text">
+                <h3>sended messages (<?php echo count($this->privatemsg['sended']); ?>)</h3>
+                <div id="next_previous_button">&nbsp;
+                <?php if(count($this->privatemsg['sended']) > 3) { ?>
+                    <small onclick="previousSendedPrivatemsg();">previous</small>&nbsp;&nbsp;<small onclick="nextSendedPrivatemsg();">next</small>
+                <?php } ?>
+                </div>
+            </div>
+            <?php $i = 0; $iDiv  = 0; foreach($this->privatemsg['sended'] as $sendedPrivatemsg) { ?>
+                <?php if($i === 0 || $i%3 == 0) { ?>
+                <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="privatemsg_sended_class" id="sended<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:auto;">
+                <?php $iDiv++; } ?>
+                <div id="privatemsg_block" class="pm<?php echo $sendedPrivatemsg['pid']; ?>">
+                    <div id="privatemsg_first">
+                        <div id="writer_image">
+                            <a href="home?uid=<?php echo $sendedPrivatemsg['writer']; ?>"><img src="data/users/<?php echo md5($sendedPrivatemsg['writer']); ?>/avatar/thumbnail.jpg" alt="<?php echo $sendedPrivatemsg['name']; ?>" title="<?php echo $sendedPrivatemsg['name']; ?>"></a>
+                        </div>
+                        <div id="privatemsg_holder">
+                            <p>
+                                <small>subject:&nbsp;</small><i id="privatemsg_subject"><?php echo $sendedPrivatemsg['subject']; ?></i>
+                                <span id="info"><small id="privatemsg_created"><i><?php echo $sendedPrivatemsg['created']; ?></i></small></span>
+                            </p>
+                            <p>to&nbsp;<a href="home?uid=<?php echo $sendedPrivatemsg['reader']; ?>"><?php echo $sendedPrivatemsg['name']; ?></a>&nbsp;</p>
+                            <p>
+                                <?php echo $sendedPrivatemsg['content']; ?>&nbsp;
+                                <small><a class="thickbox" href="privatemsg?action=delete&psid=<?php echo $sendedPrivatemsg['pid']; ?>&height=25&width=285"><i>(delete)</i></a></small>
+                            </p>
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                    <?php if(count($sendedPrivatemsg['privatemsgSub']) > 0) { ?>
+                        <p id="sub_header">&nbsp;</p>
+                    <?php } ?>
+                    <?php foreach($sendedPrivatemsg['privatemsgSub'] as $sendedPrivatemsgSub) { ?>
+                        <div id="privatemsg_sub">
+                            <div id="writer_image_sub">
+                                <a href="home?uid=<?php echo $sendedPrivatemsgSub['writer']; ?>"><img src="data/users/<?php echo md5($sendedPrivatemsgSub['writer']); ?>/avatar/thumbnail.jpg" alt="<?php echo $sendedPrivatemsgSub['name']; ?>" title="<?php echo $sendedPrivatemsgSub['name']; ?>"></a>
+                            </div>
+                            <div id="privatemsg_sub_holder">
+                                <p id="privatemsg_sub_content"><small>from:&nbsp;</small><a href="home?uid=<?php echo $sendedPrivatemsgSub['writer']; ?>"><?php echo $sendedPrivatemsgSub['name']; ?></a>
+                                    <span id="info"><small id="privatemsg_created"><i><?php echo $sendedPrivatemsgSub['created']; ?></i></small></span>
+                                </p>
+                                <p><?php echo $sendedPrivatemsgSub['content']; ?></p>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+                <h3 id="privatemsg_sended<?php echo $i; ?>" style="display:none;">your message has been send</h3>
+                <div class="privatemsg_answer pm<?php echo $sendedPrivatemsg['pid']; ?>" id="answer<?php echo $i; ?>" style="display:block;">
+                    <form id="privatemsg_form" name="privatemsg" action="" method="POST" enctype="multipart/form-data">
+                        <div id="privatemsg_textarea"><textarea id="privatemsg" name="privatemsg" rows="3" cols="65"></textarea></div>
+                        <div id="privatemsg_submit"><input id="submit_div" type="button" onclick="return checkPrivatemsgAnwserInput(<?php echo $i; ?>, 'sended_message', <?php echo $sendedPrivatemsg['reader']; ?>, <?php echo $sendedPrivatemsg['pid']; ?>);" value="answer" /></div>
+                    </form>
+                </div>
+                <?php if($i === 2 || $i%3 == 2) { ?>
+                    </div>
+                <?php } ?>
+            <?php $i++; } ?>
+            <?php if(($i < 2 && $i > 0) || $i%3 != 0) { echo '</div>'; } ?>
+        </div>
+    </div>
+</div>

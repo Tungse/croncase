@@ -1,0 +1,143 @@
+<script type="text/javascript" src="public/js/box2.js"></script>
+<div class="eventAll">
+    <div id="event_all_typ">
+        <h3 id="joined_events" onclick="showEventAttending()">events attending (<?php echo count($this->futureEventAttending) + count($this->pastEventAttending); ?>)</h3>
+        <h3 id="created_events" onclick="showEventCreated()">events created (<?php echo count($this->futureEventCreated) + count($this->pastEventCreated); ?>)</h3>       
+    </div>
+    <div id="event_all_attending" style="display:block">
+        <div id="future_event">
+            <div id="info" class="info_text">
+                <h3>in coming events (<?php echo count($this->futureEventAttending); ?>)</h3>
+                <div id="next_previous_button">
+                    <?php if(count($this->futureEventAttending) > 2) { ?>
+                        <small onclick="previousEvent('.eventAll #event_all_attending #future_event .event_future_class', '.eventAll #event_all_attending #event_owner_future');">previous</small>&nbsp;&nbsp;
+                        <small onclick="nextEvent('.eventAll #event_all_attending #future_event .event_future_class', '.eventAll #event_all_attending #event_owner_future');">next</small>
+                    <?php } else { echo '&nbsp;'; } ?>
+                </div>
+            </div>
+            <?php if(!empty($this->futureEventAttending)) { ?>
+            <?php $i = 0; $iDiv  = 0; foreach($this->futureEventAttending as $futureEventAttending) { ?>
+                <?php if($i === 0 || $i%2 == 0) { ?>
+                <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="event_future_class" id="event_owner_future<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:180px;">
+                <?php $iDiv++; } ?>
+                    <div id="event_owner_block">
+                        <div id="event_image">
+                            <a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $futureEventAttending['eid']; ?>&event&height=410&width=630"><img src="data/users/<?php echo md5($futureEventAttending['owner']); ?>/event/<?php echo $futureEventAttending['eid']; ?>/eventImageSmall.jpg" alt="event" title="<?php echo $futureEventAttending['name']; ?>"></a>
+                        </div>
+                        <div id="event_info">
+                            <p><b><a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $futureEventAttending['eid']; ?>&event&height=410&width=630"><?php echo $futureEventAttending['name']; ?></a></b></p>
+                            <p id="event_description"><?php echo substr($futureEventAttending['description'], 0, 180).' ...'; ?></p>
+                            <p id="event_date"><small><?php echo self::correctDateFormat($futureEventAttending['dateFrom']); ?>&nbsp;&nbsp;from&nbsp;<?php echo $futureEventAttending['timeFrom']; ?>&nbsp;to&nbsp;<?php echo $futureEventAttending['timeTo']; ?></small></p>
+                        </div>
+                    </div>
+                <?php if($i === 1 || $i%2 == 1) { ?>
+                    </div>
+                <?php } ?>
+            <?php $i++; } ?>
+            <?php if($i > 0 && $i%2 != 0) { echo '</div>'; } ?>
+            <?php } ?>
+        </div>
+        <div id="past_event">
+            <div id="info" class="info_text">
+                <h3>events in the past (<?php echo count($this->pastEventAttending); ?>)</h3>
+                <div id="next_previous_button">
+                    <?php if(count($this->pastEventAttending) > 4) { ?>
+                        <small onclick="previousEvent('.eventAll #event_all_attending #past_event .event_past_class', '.eventAll #event_all_attending #event_owner_past');">previous</small>&nbsp;&nbsp;
+                        <small onclick="nextEvent('.eventAll #event_all_attending #past_event .event_past_class', '.eventAll #event_all_attending #event_owner_past');">next</small>
+                    <?php } else { echo '&nbsp;'; } ?>
+                </div>
+            </div>
+            <?php if(!empty($this->pastEventAttending)) { ?>
+            <?php $a = 0; $aDiv = 0; foreach($this->pastEventAttending as $pastEventAttending) { ?>
+                <?php if($a === 0 || $a%4 == 0) { ?>
+                    <?php if($a === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="event_past_class" id="event_owner_past<?php echo $aDiv; ?>" style="display:<?php echo $display; ?>;height:275px;">
+                <?php $aDiv++; } ?>
+                    <div id="event_owner_block">
+                        <div id="event_image">
+                            <a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $pastEventAttending['eid']; ?>&event&height=410&width=630"><img src="data/users/<?php echo md5($pastEventAttending['owner']); ?>/event/<?php echo $pastEventAttending['eid']; ?>/eventImageSmall.jpg" alt="event" title="<?php echo $pastEventAttending['name']; ?>"></a>
+                        </div>
+                        <div id="event_info">
+                            <p><b><a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $pastEventAttending['eid']; ?>&event&height=410&width=630"><?php echo $pastEventAttending['name']; ?></a></b></p>
+                            <p id="event_description"><?php echo substr($pastEventAttending['description'], 0, 180).' ...'; ?></p>
+                            <p id="event_date"><small><?php echo self::correctDateFormat($pastEventAttending['dateFrom']); ?>&nbsp;&nbsp;from&nbsp;<?php echo $pastEventAttending['timeFrom']; ?>&nbsp;to&nbsp;<?php echo $pastEventAttending['timeTo']; ?></small></p>
+                        </div>
+                    </div>
+                <?php if($a === 3 || $a%4 == 3) { ?>
+                    </div>
+                <?php } ?>
+            <?php $a++; } ?>
+            <?php if(($a < 3 && $a > 0) || $a%4 != 0) { echo '</div>'; } ?>
+            <?php } ?>
+        </div>
+    </div>
+    <div id="event_all_created" style="display:none">
+        <div id="future_event">
+            <div id="info" class="info_text">
+                <h3>in coming events (<?php echo count($this->futureEventCreated); ?>)</h3>
+                <div id="next_previous_button">
+                    <?php if(count($this->futureEventCreated) > 2) { ?>
+                        <small onclick="previousEvent('.eventAll #event_all_created #future_event .event_future_class', '.eventAll #event_all_created #event_owner_future');">previous</small>&nbsp;&nbsp;
+                        <small onclick="nextEvent('.eventAll #event_all_created #future_event .event_future_class', '.eventAll #event_all_created #event_owner_future');">next</small>
+                    <?php } else { echo '&nbsp;'; } ?>
+                </div>
+            </div>
+            <?php if(!empty($this->futureEventCreated)) { ?>
+            <?php $i = 0; $iDiv  = 0; foreach($this->futureEventCreated as $futureEventCreated) { ?>
+                <?php if($i === 0 || $i%2 == 0) { ?>
+                <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="event_future_class" id="event_owner_future<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:180px;">
+                <?php $iDiv++; } ?>
+                    <div id="event_owner_block">
+                        <div id="event_image">
+                            <a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $futureEventCreated['eid']; ?>&event&height=410&width=630"><img src="data/users/<?php echo md5($futureEventCreated['owner']); ?>/event/<?php echo $futureEventCreated['eid']; ?>/eventImageSmall.jpg" alt="event" title="<?php echo $futureEventCreated['name']; ?>"></a>
+                        </div>
+                        <div id="event_info">
+                            <p><b><a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $futureEventCreated['eid']; ?>&event&height=410&width=630"><?php echo $futureEventCreated['name']; ?></a></b></p>
+                            <p id="event_description"><?php echo substr($futureEventCreated['description'], 0, 180).' ...'; ?></p>
+                            <p id="event_date"><small><?php echo self::correctDateFormat($futureEventCreated['dateFrom']); ?>&nbsp;&nbsp;from&nbsp;<?php echo $futureEventCreated['timeFrom']; ?>&nbsp;to&nbsp;<?php echo $futureEventCreated['timeTo']; ?></small></p>
+                        </div>
+                    </div>
+                <?php if($i === 1 || $i%2 == 1) { ?>
+                    </div>
+                <?php } ?>
+            <?php $i++; } ?>
+            <?php if($i > 0 && $i%2 != 0) { echo '</div>'; } ?>
+            <?php } ?>
+        </div>
+        <div id="past_event">
+            <div id="info" class="info_text">
+                <h3>events in the past (<?php echo count($this->pastEventCreated); ?>)</h3>
+                <div id="next_previous_button">
+                    <?php if(count($this->pastEventCreated) > 4) { ?>
+                        <small onclick="previousEvent('.eventAll #event_all_created #past_event .event_past_class', '.eventAll #event_all_created #event_owner_past');">previous</small>&nbsp;&nbsp;
+                        <small onclick="nextEvent('.eventAll #event_all_created #past_event .event_past_class', '.eventAll #event_all_created #event_owner_past');">next</small>
+                    <?php } else { echo '&nbsp;'; } ?>
+                </div>
+            </div>
+            <?php if(!empty($this->pastEventCreated)) { ?>
+            <?php $a = 0; $aDiv = 0; foreach($this->pastEventCreated as $pastEventCreated) { ?>
+                <?php if($a === 0 || $a%4 == 0) { ?>
+                    <?php if($a === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="event_past_class" id="event_owner_past<?php echo $aDiv; ?>" style="display:<?php echo $display; ?>;height:275px;">
+                <?php $aDiv++; } ?>
+                    <div id="event_owner_block">
+                        <div id="event_image">
+                            <a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $pastEventCreated['eid']; ?>&event&height=410&width=630"><img src="data/users/<?php echo md5($pastEventCreated['owner']); ?>/event/<?php echo $pastEventCreated['eid']; ?>/eventImageSmall.jpg" alt="event" title="<?php echo $pastEventCreated['name']; ?>"></a>
+                        </div>
+                        <div id="event_info">
+                            <p><b><a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $pastEventCreated['eid']; ?>&event&height=410&width=630"><?php echo $pastEventCreated['name']; ?></a></b></p>
+                            <p id="event_description"><?php echo substr($pastEventCreated['description'], 0, 180).' ...'; ?></p>
+                            <p id="event_date"><small><?php echo self::correctDateFormat($pastEventCreated['dateFrom']); ?>&nbsp;&nbsp;from&nbsp;<?php echo $pastEventCreated['timeFrom']; ?>&nbsp;to&nbsp;<?php echo $pastEventCreated['timeTo']; ?></small></p>
+                        </div>
+                    </div>
+                <?php if($a === 3 || $a%4 == 3) { ?>
+                    </div>
+                <?php } ?>
+            <?php $a++; } ?>
+            <?php if(($a < 3 && $a > 0) || $a%4 != 0) { echo '</div>'; } ?>
+            <?php } ?>
+        </div>
+    </div>
+</div>

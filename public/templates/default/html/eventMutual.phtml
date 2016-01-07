@@ -1,0 +1,32 @@
+<div class="eventMutual boxes">
+    <div id="info" class="info_text">
+        <h3>in common events (<?php echo count($this->mutualEvents); ?>)</h3>
+        <div id="next_previous_button">
+            <?php if(count($this->mutualEvents) > 4) { ?>
+                <small onclick="previousEvent('.eventMutual .event_mutual_class', '.eventMutual #mutual');">previous</small>&nbsp;&nbsp;<small onclick="nextEvent('.eventMutual .event_mutual_class', '.eventMutual #mutual');">next</small>
+            <?php } else { echo '&nbsp;'; } ?>
+        </div>
+    </div>
+    <div id="event_mutual_holder">
+    <?php $i = 0; $iDiv  = 0; foreach($this->mutualEvents as $mutualEvent) { ?>
+        <?php if($i === 0 || $i%4 == 0) { ?>
+            <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                <div class="event_mutual_class" id="mutual<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:400px;">
+        <?php $iDiv++; } ?>
+        <table class="mutual_table">
+            <tr>
+                <td id="event_image"><img src="data/users/<?php echo md5($mutualEvent['owner']); ?>/event/<?php echo $mutualEvent['eid']; ?>/eventImageSmall.jpg" alt="event" title="<?php echo $mutualEvent['name']; ?>"></td>
+                <td id="event_info">
+                    <p id="event_name"><b><a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $mutualEvent['eid']; ?>&event&height=410&width=630"><?php echo $mutualEvent['name']; ?></a></b></p>
+                    <p><small><i id="event_address"><?php echo $mutualEvent['address']; ?></i></small><br>
+                    <small><span id="location"><?php echo $mutualEvent['location']; ?></span></small></p>
+                </td>
+            </tr>
+        </table>
+        <?php if($i === 3 || $i%4 == 3) { ?>
+            </div>
+        <?php } ?>
+    <?php $i++; } ?>
+    </div>
+    <div id="cancel_full"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+</div>

@@ -1,0 +1,7 @@
+<div class="commentSub boxes">
+    <form name="commentSub" action="comment?uid=<?php echo $this->user['uid']; ?>&cid=<?php echo (int)$_GET['cid']; ?>" method="POST" enctype="multipart/form-data">
+        <div id="comment_sub_textarea"><textarea name="comment" id="comment" rows="2" cols="60"></textarea></div>
+        <div id="comment_submit"><input id="submit_div" type="submit" onclick="return checkInput('.commentSub #comment');" value="public" name="saveSubComment" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" id="cancel" /></div>
+    </form>
+</div>

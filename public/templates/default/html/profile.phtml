@@ -1,0 +1,87 @@
+<script type="text/javascript" src="public/js/box2.js"></script>
+<div class="profile">
+    <img src="public/templates/default/images/basicInfo.png" alt="Basic">
+    <div id="profileContent" style="overflow:hidden;">
+        <ul>
+            <table id="profileContentTable">
+<?php
+                if($this->user['page']) {
+?>
+                <tr><td></td><td id="profileEditLink"><a href="profile?action=edit" class="thickbox2"><small><i>(edit profile)</i></small></a></td><tr>
+<?php
+                } else {
+?>
+                <tr><td></td><td>&nbsp;</td></tr>
+<?php
+                }
+?>
+                <tr><td>gender: </td><td><?php echo $this->userProfile['gender']; ?></td><tr>
+                <tr><td>birthday: </td><td><?php echo $this->userProfile['birth']; ?></td><tr>
+                <tr><td>relationship status: </td><td><?php echo $this->userProfile['relationship']; ?></td><tr>
+                <tr><td id="splitTd">email: </td><td id="splitTd"><?php echo $this->userProfile['email']; ?></td><tr>
+                <tr><td id="splitTd">about me: </td><td id="splitTd"><?php echo $this->userProfile['aboutMe']; ?></td><tr>
+                <tr><td>websites: </td><td><?php echo $this->userProfile['website']; ?></td><tr>
+                <tr><td>current location: </td><td><?php echo $this->userProfile['location']; ?></td><tr>
+                <tr><td id="splitTd">hometown: </td><td id="splitTd"><?php echo $this->userProfile['hometown']; ?></td><tr>
+                <tr><td>political views: </td><td><?php echo $this->userProfile['politics']; ?></td><tr>
+                <tr><td>religious views: </td><td><?php echo $this->userProfile['religious']; ?></td><tr>
+            </table>
+        </ul>
+    </div>
+    <img src="public/templates/default/images/interestsInfo.png" alt="Interests">
+    <div id="profileContent">
+        <ul>
+            <table id="profileContentTable">
+<?php
+                if($this->user['page']) {
+?>
+                <tr><td></td><td id="profileEditLink"><a href="profile?action=edit" class="thickbox2"><small><i>(edit profile)</i></small></a></td><tr>
+<?php
+                } else {
+?>
+                <tr><td></td><td>&nbsp;</td></tr>
+<?php
+                }
+?>
+                <tr><td>activities: </td><td><?php echo $this->userProfile['activities']; ?></td><tr>
+                <tr><td id="splitTd">interests: </td><td id="splitTd"><?php echo $this->userProfile['interests']; ?></td><tr>
+                <tr><td>favourite films: </td><td><?php echo $this->userProfile['films']; ?></td><tr>
+                <tr><td>favourite music: </td><td><?php echo $this->userProfile['music']; ?></td><tr>
+                <tr><td id="splitTd">favourite books: </td><td id="splitTd"><?php echo $this->userProfile['books']; ?></td><tr>
+                <tr><td>favourite quotations: </td><td><?php echo $this->userProfile['quotations']; ?></td><tr>
+            </table>
+        </ul>
+    </div>
+    <img src="public/templates/default/images/educationInfo.png" alt="Education">
+    <div id="profileContent">
+        <ul>
+            <table id="profileContentTable">
+<?php
+                if($this->user['page']) {
+?>
+                <tr><td></td><td id="profileEditLink"><a href="profile?action=edit" class="thickbox2"><small><i>(edit profile)</i></small></a></td><tr>
+<?php
+                } else {
+?>
+                <tr><td></td><td>&nbsp;</td></tr>
+<?php
+                }
+?> 
+                <tr><td>secondary school: </td><td><?php echo $this->userProfile['school']; ?></td><tr>
+                <tr><td id="splitTd">leaving Year: </td><td id="splitTd"><?php echo $this->userProfile['leavingYearsSchool']; ?></td><tr>
+                <tr><td>university: </td><td><?php echo $this->userProfile['university']; ?></td><tr>
+                <tr><td>leaving year: </td><td><?php echo $this->userProfile['leavingYearsUniversity']; ?></td><tr>
+                <tr><td id="splitTd">courses: </td><td id="splitTd"><?php echo $this->userProfile['courses']; ?></td><tr>
+                <tr><td>employer: </td><td><?php echo $this->userProfile['employer']; ?></td><tr>
+                <tr><td>position: </td><td><?php echo $this->userProfile['position']; ?></td><tr>
+                <tr><td>description: </td><td><?php echo $this->userProfile['description']; ?></td><tr>
+                <tr><td>city: </td><td><?php echo $this->userProfile['city']; ?></td><tr>
+                <tr><td>since: </td><td><?php echo $this->userProfile['since']; ?></td><tr>
+            </table>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".profile").tabs(".profile div", {tabs: 'img', effect: 'horizontal'});
+</script>

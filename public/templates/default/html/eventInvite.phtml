@@ -1,0 +1,14 @@
+<div class="eventInvite boxes">
+    <form name="event" action="" method="POST" enctype="multipart/form-data">
+        <p id="event_invite_title">email address:</p>
+        <div id="event_invite_subject"><input type="text" id="email" name="email" value="" size="50" /></div>
+        <p id="event_invite_title">or select from your friendlist:</p>
+        <div id="event_invite_textarea">
+            <select id="friends" name="friends[]" size="21" multiple="multiple">
+                <?php echo $this->friendSelect; ?>
+            </select>
+        </div>
+        <div id="invite_submit"><input id="submit_div" type="button" value="invite" onclick="inviteFriendToEvent(<?php echo $this->ueid; ?>, <?php echo (int)$_GET['eid']; ?>);" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" /></div>
+    </form>
+</div>

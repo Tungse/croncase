@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>event invitation</title>
+        <meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+    </head>
+    <body style="font-family:Arial;padding:10px;">
+        <h3 style="width:390px;background-color:#1587B7;border:1px solid #1587B7;color:#FFF;padding-left:10px;margin:0px;"><?php echo PROJECT; ?> <i style="font-size:12px;">event invitation</i></h3>
+        <div style="width:400px;background-color:#F8F8F8;border:1px solid #CCC;">
+            <div style="padding:10px;font-size:14px;">
+                Hi <?php echo $this->receiver; ?>,<br>
+                <br><?php echo $this->writer; ?> has invited you to the event <a  style="text-decoration:none;" href="http://www.<?php echo PROJECT; ?>.com/view?eid=<?php echo str_replace('=', '', $this->eventPublic); ?>"><b style="color:#3A7FB2;"><?php echo $this->eventName; ?></b></a> on <?php echo PROJECT; ?>.com.
+                <br>To see the invitation, please <a style="text-decoration:none;" href="http://www.<?php echo PROJECT; ?>.com/"><b style="color:#3A7FB2;">login</b></a> on <?php echo PROJECT; ?>.<br>
+                <br>your <?php echo PROJECT; ?> team
+                <p>&nbsp;</p>
+            </div>
+        </div>
+        <span style="color:#888;font-size:9px;">&nbsp;&nbsp;&nbsp;deactivate this notification at 'edit my account' > 'notification setting'</span>
+    </body>
+</html>

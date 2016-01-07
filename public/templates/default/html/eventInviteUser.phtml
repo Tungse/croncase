@@ -1,0 +1,30 @@
+<script type="text/javascript" src="public/js/autocomplete.js"></script>
+<div class="eventInviteUser boxes">
+    <form name="eventInviteUser" action="" method="POST" enctype="multipart/form-data">
+        <div id="info" class="info_text">
+            <h3>choose an event name to invite <?php echo $this->user['info']['firstname']; ?></h3>
+        </div>
+        <div id="event_user_name"><input class="ac_input" type="text" id="eventName" value="" size="27"><input type="hidden" value="" id="ueid"><input type="hidden" value="" id="eid"></div>
+        <div id="inviteUser_submit"><input id="submit_div" type="button" onclick="return checkInputEventInviteUser(<?php echo (int)$_GET['uid']; ?>);" value="invite" name="inviteUser" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" id="cancel" /></div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".eventInviteUser #eventName").autocomplete('event?action=eventInviteAutoComplete', {
+            max:20,
+            width: 280,
+            matchContains: true,
+            formatItem: function(data) {
+                    return data[0] + '<br><small><i>' + data[2] + ' ' + data[3] +  ' ' + data[4] + '</i></small>';
+            },
+            formatResult: function(data) {
+                    return data[0];
+            }
+        });
+        $(".eventInviteUser #eventName").result(function(event, data, formatted) {
+            $("#ueid").val(data[1]);
+            $("#eid").val(data[5]);
+	});
+    });
+</script>

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>friend invitation</title>
+        <meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+    </head>
+    <body style="font-family:Arial;padding:10px;">
+        <h3 style="width:390px;background-color:#1587B7;border:1px solid #1587B7;color:#FFF;padding-left:10px;margin:0px;"><?php echo PROJECT; ?> <i style="font-size:12px;">friend invitation</i></h3>
+        <div style="width:400px;background-color:#F8F8F8;border:1px solid #CCC;">
+            <div style="padding:10px;font-size:14px;">
+                Hello,<br>
+                <br><?php echo $this->writerFullName; ?> has invited you to join on <?php echo PROJECT; ?>.com.
+                <br><?php echo $this->writer; ?> has wrote<br>
+                <br><i><?php echo $this->content; ?></i><br>
+                <br>to join your friend on <?php echo PROJECT; ?>.com, please follow this link:<br>
+                <a style="text-decoration:none;" href="http://www.<?php echo PROJECT; ?>.com/activation?action=friendInvite&h=<?php echo $this->hash; ?>"><b style="color:#3A7FB2;">accept invitation</b></a><br>
+                <br>your <?php echo PROJECT; ?> team
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </body>
+</html>

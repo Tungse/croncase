@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo $this->site['name']; ?></title>
+        <script type="text/javascript" src="public/js/jquery.js"></script>
+        <script type="text/javascript" src="public/js/box.js"></script>
+        <script type="text/javascript" src="public/js/tab.js"></script>
+        <script type="text/javascript" src="public/js/tools.js"></script>
+        <!--<script type="text/javascript" src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAdoFicXw5I1U56NMO2c-jihQ6sVcNnPGQlep8BxinYLstvtOkdhSsFLmYC7gBkmVJN98Vn65CJ-4SQw"></script>-->
+        <link rel="stylesheet" href="public/templates/default/css/style.css" type="text/css" />
+        <link rel="stylesheet" href="public/templates/default/css/home.css" type="text/css" />
+        <link rel="stylesheet" href="public/templates/default/css/boxes.css" type="text/css" />
+        <link rel="stylesheet" href="public/templates/default/css/index.css" type="text/css" />
+        <link rel="stylesheet" href="public/templates/default/css/datepicker.css" type="text/css" />
+        <link rel="stylesheet" href="public/templates/default/css/navi.css" type="text/css" />
+        <link rel="stylesheet" href="public/templates/default/css/ie.css" type="text/css" />
+        <meta name="robots" content="noodp,noydir" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="calendar, timetable, week, event, social network" />
+        <meta name="description" content="Croncase is your social timetable, sharing it with your friends will create a whole new experience of living, working and studying together." />
+    </head>
+    <?php echo $this->body; ?>
+        <div id="header">
+            <?php echo $this->navi; ?>
+        </div>
+        <div id="content">
+            <?php echo $this->siteContent; ?>
+        </div>            
+        <div id="footer">
+            <table id="footerLinks">
+                <tr>
+                    <td id="footerCopyright"><?php echo PROJECT; ?> &copy; 2010</td>
+                    <td><a href="explanation?action=terms" class="thickbox">terms</a></td>
+                    <td><a href="explanation?action=impressum" class="thickbox">impressum</a></td>
+                    <?php if($this->user['login']) { ?>
+                        <td><a href="privatemsg?action=write&feedback&width=350&height=290" class="thickbox">your feedback</a></td>
+                        <td><a href="friend?action=invite&width=350&height=290" style="color:red;" class="thickbox">tell a friend</a></td>
+                        <td><a href="logout">logout ;(</a></td>
+                    <?php } else { ?>
+                        <td><a href="password?height=70&width=255" class="thickbox"><small><i>new password</i></small></a></td>
+                        <!--<td><small>works best on <a target="_blank" href="http://www.mozilla-europe.org/de/firefox/">firefox</a>, <a target="_blank" href="http://www.google.com/chrome">google chrome</a>, <a target="_blank" href="http://www.apple.com/de/safari/">safari</a></small></td>-->
+                    <?php } ?>
+                </tr>
+            </table>           
+        </div>
+    </body>
+</html>

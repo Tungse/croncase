@@ -1,0 +1,39 @@
+<div class="friendAction boxes">
+    <form name="friendAction" action="friend?uid=<?php echo $this->user['uid']; ?>" method="POST" enctype="multipart/form-data">
+    <?php
+        switch($this->actionTyp) {
+
+            case 'request':
+    ?>
+                <div id="friend_info" class="info_text">
+                    <h3>add <?php echo $this->user['info']['firstname']; ?> as your friend</h3>
+                </div>
+                <div id="friend_submit"><input id="submit_div" type="button" onclick="addFriend(<?php echo $this->user['uid']; ?>);" value="request" name="request" /></div>
+                <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" id="cancel" /></div>
+    <?php
+                break;
+
+            case 'confirm':
+    ?>
+                <div id="friend_info" class="info_text">
+                    <h3>confirm <?php echo $this->user['info']['firstname']; ?> as your friend</h3>
+                </div>
+                <div id="friend_submit"><input id="submit_div" type="button" onclick="confirmFriendRequest(<?php echo $this->user['uid']; ?>)" value="confirm" name="confirm" /></div>
+                <div id="cancel"><input id="no_div" type="submit" value="no" name="deny" /></div>
+    <?php
+                break;
+
+            case 'delete':
+    ?>
+                <div id="friend_info" class="info_text">
+                    <h3>cancel the friendship with <?php echo $this->user['info']['firstname']; ?></h3>
+                </div>
+                <div id="friend_submit"><input id="submit_div" type="submit" value="cancel" name="delete" /></div>
+                <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" /></div>
+    <?php
+                break;
+
+        }
+    ?>
+    </form>
+</div>

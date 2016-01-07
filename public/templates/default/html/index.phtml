@@ -1,0 +1,135 @@
+<div class="index">
+    <div id="info_block">
+        <div id="info_text">
+            <div id="text">
+                <h1>Share your time<br>with friends.</h1>
+                <div id="content">
+                    Croncase is your social timetable, sharing it with your friends will create a whole new experience of living, working and studying together. Use Croncase to plan your week, invite friends to join your events and sharing the memories of past events with them.
+                </div>
+            </div>
+        </div>
+        <div id="info_images">
+            <div id="images_holder">
+                <div id="images">
+                    <div id="image1"  class="first">
+                        <img alt="image" src="public/templates/default/images/frontpage/1.png">
+                        <h4>create your event</h4>
+                    </div>
+                    <div id="image2">
+                        <img alt="image" src="public/templates/default/images/frontpage/2.png">
+                        <h4>edit your event description</h4>
+                    </div>
+                    <div id="image3">
+                        <img alt="image" src="public/templates/default/images/frontpage/3.png">
+                        <h4>change the privacy of your event</h4>
+                    </div>
+                    <div id="image4">
+                        <img alt="image" src="public/templates/default/images/frontpage/4.png">
+                        <h4>edit date and time of your event</h4>
+                    </div>
+                    <div id="image5">
+                        <img alt="image" src="public/templates/default/images/frontpage/5.png">
+                        <h4>edit the name of your event</h4>
+                    </div>
+                    <div id="image6">
+                        <img alt="image" src="public/templates/default/images/frontpage/6.png">
+                        <h4>edit date and time of your event</h4>
+                    </div>
+                    <div id="image7">
+                        <img alt="image" src="public/templates/default/images/frontpage/7.png">
+                        <h4>your event</h4>
+                    </div>
+                    <div id="image8">
+                        <img alt="image" src="public/templates/default/images/frontpage/8.png">
+                        <h4>share it with your friends</h4>
+                    </div>
+                    <div id="image9">
+                        <img alt="image" src="public/templates/default/images/frontpage/9.png">
+                        <h4>invite your friends to your event</h4>
+                    </div>
+                    <div id="image10">
+                        <img alt="image" src="public/templates/default/images/frontpage/10.png">
+                        <h4>change date and time of your event</h4>
+                    </div>
+                    <div id="image11">
+                        <img alt="image" src="public/templates/default/images/frontpage/11.png">
+                        <h4>move your event to where you want it to be</h4>
+                    </div>
+                    <div id="image12">
+                        <img alt="image" src="public/templates/default/images/frontpage/12.png">
+                        <h4>see your common events with friends</h4>
+                    </div>
+                    <div id="image13">
+                        <img alt="image" src="public/templates/default/images/frontpage/13.png">
+                        <h4>events you've been together with your friends</h4>
+                    </div>
+                    <div id="image14">
+                        <img alt="image" src="public/templates/default/images/frontpage/14.png">
+                        <h4>invite friends directly to one of your events</h4>
+                    </div>
+                    <div id="image15">
+                        <img alt="image" src="public/templates/default/images/frontpage/15.png">
+                        <h4>easily invite your friend to your event</h4>
+                    </div>
+                    <div id="image16">
+                        <img alt="image" src="public/templates/default/images/frontpage/16.png">
+                        <h4></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="event_recommend_block">
+        <h4>check out some public events on <span id="name"><?php echo PROJECT; ?></span></h4>
+        <div id="event_holder">
+            <?php foreach($this->eventRecommend as $eventRecommend) { ?>
+                <div id="event">
+                    <div id="event_img"><a target="_blank" href="view?eid=<?php echo str_replace('=', '', base64_encode($eventRecommend['eid'])); ?>"><img src="data/users/<?php echo md5($eventRecommend['owner']); ?>/event/<?php echo $eventRecommend['eid']; ?>/eventImageSmall.jpg" alt="<?php echo $eventRecommend['name']; ?>" title="<?php echo $eventRecommend['name']; ?>"></a></div>
+                    <div id="event_name"><a target="_blank" href="view?eid=<?php echo str_replace('=', '', base64_encode($eventRecommend['eid'])); ?>"><?php echo substr($eventRecommend['name'], 0, 40); ?></a></div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+    <div id="register_news_block">
+        <div id="news">
+            <h4>the latest from <span id="name"><?php echo PROJECT; ?></span></h4>
+            <ul id="news_table">
+                <li>a list of all the events you have in common with your friends</li>
+                <li>integrating google maps into the event box has been done</li>
+                <li>create weekly or daily events is now possible</li>
+                <li>a list of all the events you have been attended or created</li>
+                <li>notification system is now online, you can deactivate notifications in your account setting</li>
+            </ul>
+        </div>
+        <div id="register">
+            <?php echo $this->application['register']; ?>
+            <div id="system_status_holder">
+                <p id="new_password_sended" onmouseover="hideSystemStatus('new_password_sended');">a new password has been send to your email address</p>
+                <p id="empty_input" onmouseover="hideSystemStatus('empty_input');">don't forget to fill all the necessary fields</p>
+            </div>
+            <div id="status_holder">
+                <?php echo $this->errorMessage; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var i = 1;
+    $(function(){
+        setInterval('startSlide()', 6000);
+    })
+    function startSlide() {
+        var a = getNextID();
+        $('.index #image' + i).fadeOut('slow', function() {
+            $('.index #image' + a).fadeIn('slow')
+        });
+        i = a;
+    }
+    function getNextID() {
+        if(i == 16) {
+            return 1;
+        } else {
+            return i + 1;
+        }
+    }
+</script>

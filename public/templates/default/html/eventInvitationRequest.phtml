@@ -1,0 +1,34 @@
+<div class="eventInvitationRequest boxes">
+    <div id="info" class="info_text">
+        <h3>invitation request to event (<?php echo count($this->eventRequest); ?>)</h3>
+        <div id="next_previous_button">
+            <?php if(count($this->eventRequest) > 4) { ?>
+                <small onclick="previousEventRequest();">previous</small>&nbsp;&nbsp;<small onclick="nextEventRequest();">next</small>
+            <?php } else { echo '&nbsp;'; } ?>
+        </div>
+    </div>
+    <div id="event_request_holder">
+    <?php $i = 0; $iDiv  = 0; foreach($this->eventRequest as $eventRequest) { ?>
+        <?php if($i === 0 || $i%4 == 0) { ?>
+            <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                <div class="event_request_class" id="request<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:310px;">
+        <?php $iDiv++; } ?>
+        <div class="event_request_block" id="event_request<?php echo $eventRequest['id']; ?>">
+            <div id="request_img"><a href="home?uid=<?php echo $eventRequest['request']; ?>"><img src="data/users/<?php echo md5($eventRequest['request']); ?>/avatar/thumbnail.jpg" title="<?php echo $eventRequest['name']; ?>" alt="<?php echo $eventRequest['name']; ?>"></a></div>
+            <div id="event_request_content">
+                <p><a href="home?uid=<?php echo $eventRequest['request']; ?>"><?php echo $eventRequest['name']; ?></a> wants to attend <b><?php echo $eventRequest['eventName']; ?></b> and need an invitation</p>
+                <p id="event_date"><small><?php echo $eventRequest['created']; ?></small></p>
+            </div>
+            <div id="event_request_respond">
+                <div id="event_request_submit"><input id="submit_div" type="button" onclick="acceptEventInvitationRequest(<?php echo $eventRequest['id']; ?>, <?php echo $eventRequest['eid']; ?>, <?php echo $eventRequest['ueid']; ?>, <?php echo $eventRequest['request']; ?>)" value="invite" name="join" /></div>
+                <div id="cancel"><input id="no_div" type="button" onclick="denyEventInvitationRequest(<?php echo $eventRequest['id']; ?>)" value="no" name="reject" /></div>
+            </div>
+        </div>
+        <p style="display:none" class="info_text" id="status_notification<?php echo $eventRequest['id']; ?>">you have invited <?php echo $eventRequest['name']; ?> to join <b><?php echo $eventRequest['eventName']; ?></b></p>
+        <?php if($i === 3 || $i%4 == 3) { ?>
+            </div>
+        <?php } ?>
+    <?php $i++; } ?>
+    </div>
+    <div id="cancel_full"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+</div>

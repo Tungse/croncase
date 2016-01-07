@@ -1,0 +1,67 @@
+<div class="viewEvent">
+    <div id="event_holder">
+        <?php if(!empty($this->event['name'])) { ?>
+            <div id="event_info_block">
+                <h3><?php echo $this->event['name']; ?></h3>
+                <p><b id="date">date:&nbsp;<i><?php echo $this->event['dateFrom']; ?></i>&nbsp;&nbsp;&nbsp;time:&nbsp;<i><?php echo $this->event['timeFrom']; ?></i>&nbsp;-&nbsp;<i><?php echo $this->event['timeTo']; ?></i></b></p>
+                <?php if(!empty($this->event['location'])) { ?>
+                    <p><i id="location"><?php echo $this->event['location']; ?></i></p>
+                <?php } ?>
+                <p>&nbsp;</p>
+                <?php if(!empty($this->event['description'])) { ?>
+                    <p id="description"><?php echo $this->event['description']; ?></p>
+                <?php } ?>
+                <?php if(!empty($this->event['website'])) { ?>
+                    <p id="website"><i>(website <?php echo $this->event['website']; ?>)</i></p>
+                <?php } ?>
+                <p>&nbsp;</p>
+                <p id="owner"><a href="home?uid=<?php echo $this->event['owner']; ?>">by <?php echo $this->event['firstname'].' '.$this->event['lastname']; ?></a></p>
+            </div>
+            <p>&nbsp;</p>
+            <?php if(!$this->user['login']) { ?>
+                <div id="create_account_button"><input type="button" onclick="showCreateAccount();" value="create an account"></div>
+                <div id="register" style="display:none;">
+                    <?php echo $this->application['register']; ?>
+                </div>
+            <?php } ?>
+            <div id="event_attenders_block">
+                <?php if($this->event['attenderCount'] > 0) { ?>
+                    <h4>people attending this event (<?php echo $this->event['attenderCount']; ?>)</h4>
+                    <div id="attenders_holder">
+                        <?php foreach($this->event['attenders'] as $attender) { ?>
+                            <div id="attender_img">
+                                <a href="home?uid=<?php echo $attender['uid']; ?>">
+                                    <img src="data/users/<?php echo md5($attender['uid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $attender['name']; ?>" title="<?php echo $attender['name']; ?>">
+                                </a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            </div>
+            <div id="event_comment_block">
+                <?php if(count($this->event['comment']) > 0) { ?>
+                    <h4>comment on this event (<?php echo count($this->event['comment']); ?>)</h4>
+                    <div id="comment_holder">
+                        <?php foreach($this->event['comment'] as $commentEvent) { ?>
+                            <div id="comment_block">
+                                <div id="comment_img">
+                                    <a href="home?uid=<?php echo $commentEvent['wid']; ?>">
+                                        <img src="data/users/<?php echo md5($commentEvent['wid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $commentEvent['name']; ?>" title="<?php echo $commentEvent['name']; ?>">
+                                    </a>
+                                </div>
+                                <div id="comment_content">
+                                    <a href="home?uid=<?php echo $commentEvent['wid']; ?>"><?php echo $commentEvent['name']; ?></a>
+                                    <?php echo $commentEvent['comment']; ?>
+                                    <p id="info"><small id="comment_created"><i><?php echo $commentEvent['created']; ?></i></small>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            </div>
+            <p>&nbsp;</p>
+        <?php } else { ?>
+            <h3>sorry, there is no event associate with this link</h3>
+        <?php } ?>
+    </div>
+</div>

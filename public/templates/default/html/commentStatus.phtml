@@ -1,0 +1,71 @@
+<div class="commentStatus" style="display:<?php echo $this->commentStatusDisplay; ?>;">
+    <div id="status_holder">
+        <?php if($this->user['page'] && $this->notificationExist) { ?>
+            <div id="showNotification" onclick="showNotification()"><img src="public/templates/default/images/notification_new.png" alt="show notification"></div>
+        <?php } ?>
+        <?php if($this->status !== NULL) { ?>
+            <div class="status_block" id="status<?php echo $this->status['cid']; ?>">
+                <p id="status_content"><a href="home?uid=<?php echo $this->user['uid']; ?>"><b><?php echo $this->user['info']['name'] ?></b></a> <?php echo parent::trimString($this->status['status'], 210, 'status', $this->user['uid']); ?></p>
+                <p id="status_info"><small id="created"><i><?php echo $this->status['created']; ?></i></small>
+                    <a class="thickbox" href="comment?uid=<?php echo $this->user['uid']; ?>&cid=<?php echo $this->status['cid']; ?>&sub&height=55&width=495"><small><i>comment</i></small></a>
+                    <?php if($this->user['page']) { ?>
+                        <a class="thickbox" href="comment?uid=<?php echo $this->user['myuid']; ?>&cid=<?php echo $this->status['cid']; ?>&delete&height=25&width=285"><small><i>delete</i></small></a>
+                    <?php } ?>
+                </p>
+            </div>
+        <?php } ?>
+    </div>
+    <?php if($this->user['page']) { ?>
+        <form name="comment" action="comment?uid=<?php echo $this->user['myuid']; ?>" method="POST" enctype="multipart/form-data">
+            <div id="status_block">
+                <textarea id="input_div" name="comment" rows="2" cols="37"></textarea>
+                <input id="submit_div" type="submit" onclick="return checkInput('.commentStatus #input_div');" value="public" name="saveComment" />
+            </div>
+        </form>
+    <?php  } ?>
+</div>
+<div id="system_status_holder">
+    <p id="comment_delete" onmouseover="hideSystemStatus('comment_delete');">the comment has been deleted</p>
+    <p id="event_comment_delete" onmouseover="hideSystemStatus('event_comment_delete');">the comment of a event has been deleted</p>
+    <p id="comment_event" onmouseover="hideSystemStatus('comment_event');">your comment has been added to the event</p>
+    <p id="event_delete" onmouseover="hideSystemStatus('event_delete');">the event has been deleted</p>
+    <p id="event_invite" onmouseover="hideSystemStatus('event_invite');">you have invited your friends to the event</p>
+    <p id="friend_invite" onmouseover="hideSystemStatus('friend_invite');">you have invited your friend to <?php echo PROJECT; ?></p>
+    <p id="update_account" onmouseover="hideSystemStatus('update_account');">you have updated your account</p>
+    <p id="write_privatemsg" onmouseover="hideSystemStatus('write_privatemsg');">you message has been send</p>
+    <p id="request_friend" onmouseover="hideSystemStatus('request_friend');">you friend request has been send</p>
+    <p id="event_invite_user" onmouseover="hideSystemStatus('event_invite_user');">you invitation to an event has been send</p>
+    <p id="event_attending" onmouseover="hideSystemStatus('event_attending');">you have joined the event</p>
+</div>
+<div class="notificationStatus" style="display:<?php echo $this->notificationDisplay; ?>;">
+    <?php if($this->user['page']) { ?>
+        <div id="notification_status_holder" style="display:<?php echo $this->notificationDisplay; ?>;">
+        <?php if($this->notification['eventInvitationCount'] == 1) { ?>
+            <p><a class="thickbox" href="event?action=showInvitation&height=345&width=570"><?php echo $this->notification['eventInvitationCount']; ?> event invitation</a><i id="new"> new</i></p>
+        <?php } elseif($this->notification['eventInvitationCount'] > 1) { ?>
+            <p><a class="thickbox" href="event?action=showInvitation&height=345&width=570"><?php echo $this->notification['eventInvitationCount']; ?> event invitations</a><i id="new"> new</i></p>
+        <?php } ?>
+        <?php if($this->notification['friendRequestCount'] == 1) { ?>
+            <p><a class="thickbox" href="friend?action=allRequest&height=380&width=390"><?php echo $this->notification['friendRequestCount']; ?> friend request</a><i id="new"> new</i></p>
+        <?php } elseif($this->notification['friendRequestCount'] > 1) { ?>
+            <p><a class="thickbox" href="friend?action=allRequest&height=380&width=390"><?php echo $this->notification['friendRequestCount']; ?> friend requests</a><i id="new"> new</i></p>
+        <?php } ?>
+        <?php if($this->notification['privatemgsAllCount'] == 1) { ?>
+            <p><a href="privatemsg?action=view"><?php echo $this->notification['privatemgsAllCount']; ?> private message</a><i id="new"> new</i></p>
+        <?php } elseif($this->notification['privatemgsAllCount'] > 1) { ?>
+            <p><a href="privatemsg?action=view"><?php echo $this->notification['privatemgsAllCount']; ?> private messages</a><i id="new"> new</i></p>
+        <?php } ?>
+        <?php if($this->notification['eventCommentCount'] == 1) { ?>
+            <p><a class="thickbox" href="event?action=viewUnreadComment&height=355&width=590"><?php echo $this->notification['eventCommentCount']; ?> comment on events</a><i id="new"> new</i></p>
+        <?php } elseif($this->notification['eventCommentCount'] > 1) { ?>
+            <p><a class="thickbox" href="event?action=viewUnreadComment&height=355&width=590"><?php echo $this->notification['eventCommentCount']; ?> comments on events</a><i id="new"> new</i></p>
+        <?php } ?>
+        <?php if($this->notification['requestEventInvitation'] == 1) { ?>
+            <p><a class="thickbox" href="event?action=viewEventInvitationRequest&height=345&width=590"><?php echo $this->notification['requestEventInvitation']; ?> request for an event invitation</a><i id="new"> new</i></p>
+        <?php } elseif($this->notification['requestEventInvitation'] > 1) { ?>
+            <p><a class="thickbox" href="event?action=viewEventInvitationRequest&height=345&width=590"><?php echo $this->notification['requestEventInvitation']; ?> requests for an event invitation</a><i id="new"> new</i></p>
+        <?php } ?>
+        </div>
+        <p id="hideNotification" onclick="hideNotification()"><small><i>hide notification</i></small></p>
+    <?php } ?>
+</div>

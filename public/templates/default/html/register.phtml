@@ -1,0 +1,16 @@
+<div class="register">
+    <form name="register" action="index" method="POST" enctype="multipart/form-data">
+        <div id="register_name">
+            <div id="register_firstname"><input type="text" name="firstname" id="firstname" onblur="enableSystemText('firstname');" onfocus="deleteSystemText('firstname');"  value="<?php echo $this->input['firstname']; ?>" size="24" /></div>
+            <div id="register_lastname"><input type="text" name="lastname" id="lastname" onblur="enableSystemText('lastname');" onfocus="deleteSystemText('lastname');"  value="<?php echo $this->input['lastname']; ?>" size="24" /></div>
+        </div>
+        <div id="register_email"><input type="text" name="email" id="email" onblur="enableSystemText('email');" onfocus="deleteSystemText('email');" value="<?php echo $this->input['email']; ?>" size="54" /></div>
+        <div id="register_password"><input type="password" id="password" name="password" value="" size="40" /><div id="password_info"><small><i><b>your password</b></i></small></div></div>
+        <div id="register_gender">
+            <select name="gender">
+                <option>female</option>
+                <option>male</option>
+            </select></div>
+        <div id="register_submit"><input type="submit" onclick="return checkRegisterInput();" value="create an account" name="register" /></div>
+    </form>
+</div>

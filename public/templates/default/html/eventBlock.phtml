@@ -1,0 +1,18 @@
+<div id="event<?php echo $event['id']; ?>" class="eventBlock<?php echo $event['draggable']; ?>" style="height:<?php echo $blockStyle['divHeight']; ?>px;top:<?php echo $blockStyle['divTop']; ?>px;margin-left:<?php echo $left; ?>px;">
+    <div id="eventInner" style="background-color:<?php echo $blockStyle['color']; ?>;height:<?php echo $blockStyle['innerDivHeight']; ?>px;">
+        <div id="eventBoxName">
+            <a class="thickbox2" href="event?action=view&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $event['eid']; ?>&ueid=<?php echo $event['id']; ?>&height=410&width=630&event"><?php echo $event['name']; ?></a><?php echo $event['eventDate']; ?>
+        </div>
+        <div id="eventBoxLink">
+        <?php if($this->user['myuid'] == $event['owner']) { ?>
+            <a class="thickbox2" href="event?action=edit&eid=<?php echo $event['eid']; ?>&uid=<?php echo $this->user['uid']; ?>&height=235&width=480">edit</a>
+        <?php } ?>
+        <?php if($this->user['page']) { ?>
+            <?php if($event['invite']) { ?>
+               <a class="thickbox2" href="event?action=invite&uid=<?php echo $this->user['uid']; ?>&eid=<?php echo $event['eid']; ?>&ueid=<?php echo $event['id']; ?>&width=350&height=375">invite</a>
+            <?php } ?>
+            <a class="thickbox2" href="event?action=delete&eid=<?php echo $event['eid']; ?>&ueid=<?php echo $event['id']; ?>&height=25&width=255">delete</a>
+        <?php } ?>
+        </div>
+    </div>
+</div>

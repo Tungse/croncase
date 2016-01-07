@@ -1,0 +1,167 @@
+<div class="profileEdit boxes">
+    <form name="profile" action="profile" method="POST" enctype="multipart/form-data">
+        <div id="slide">
+            <h2 class="current">basic information</h2>
+            <div class="pane" style="display:block">
+                <table id="basicInformationTable">
+                    <tr>
+                        <td id="profileFirstTd"></td>
+                        <td id="profileSecondTd">gender: </td>
+                        <td id="profileThirdTd" class="no_border"><select name="gender"><?php echo $this->genderOption; ?></select></td>
+                    </tr>
+                    <tr id="birthdayTr">
+                        <td><select name="privacyBirth"><?php echo $this->privacy['birth']; ?></select></td>
+                        <td>birthday</td>
+                        <td class="no_border"><select name="days"><?php echo $this->birthDayOption; ?></select>
+                            <select name="months"><?php echo $this->birthMonthOption; ?></select>
+                            <select name="years"><?php echo $this->birthYearOption; ?></select>
+                        </td>
+                    </tr>
+                    <tr id="relationshipTr">
+                        <td><select name="privacyRelationship"><?php echo $this->privacy['relationship']; ?></select></td>
+                        <td>relationship</td>
+                        <td class="no_border"><select name="relationship"><?php echo $this->relationshipOption; ?></select></td>
+                    </tr>
+                    <tr id="emailTr">
+                        <td><select name="privacyEmail"><?php echo $this->privacy['email']; ?></select></td>
+                        <td>email</td>
+                        <td><input type="text" name="email" value="<?php echo $this->userProfile['email']; ?>" size="54px" /></td>
+                    </tr>
+                    <tr id="aboutMeTr">
+                        <td><select name="privacyAboutMe"><?php echo $this->privacy['aboutMe']; ?></select></td>
+                        <td>about me</td>
+                        <td class="area"><textarea name="aboutMe" rows="3" cols="52"><?php echo $this->userProfile['aboutMe']; ?></textarea></td>
+                    </tr>
+                    <tr id="websiteTr">
+                        <td><select name="privacyWebsite"><?php echo $this->privacy['website']; ?></select></td>
+                        <td>websites</td>
+                        <td><input type="text" name="website" value="<?php echo $this->userProfile['website']; ?>" size="54px" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>current location</td>
+                        <td><input type="text" name="location" value="<?php echo $this->userProfile['location']; ?>" size="54px" /></td>
+                    </tr>
+                    <tr id="hometownTr">
+                        <td></td>
+                        <td>hometown</td>
+                        <td><input type="text" name="hometown" value="<?php echo $this->userProfile['hometown']; ?>" size="54px" /></td>
+                    </tr>
+                    <tr id="politicsTr">
+                        <td><select name="privacyPolitics"><?php echo $this->privacy['politics']; ?></select></td>
+                        <td>political views</td>
+                        <td><input type="text" name="politics" value="<?php echo $this->userProfile['politics']; ?>" size="54px" /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>religious views</td>
+                        <td><input type="text" name="religious" value="<?php echo $this->userProfile['religious']; ?>" size="54px" /></td>
+                    </tr>
+                </table>
+            </div>
+            <h2>interests</h2>
+            <div class="pane">
+                <div>
+                    <table id="interestsInformationTable">
+                        <tr id="activitiesTr">
+                            <td id="profileFirstTd"><select name="privacyActivities"><?php echo $this->privacy['activities']; ?></select></td>
+                            <td  id="profileSecondTd">activities: </td>
+                            <td id="profileThirdTd" class="area"><textarea name="activities" rows="2" cols="52"><?php echo $this->userProfile['activities']; ?></textarea></td>
+                        </tr>
+                        <tr id="interestsTr">
+                            <td><select name="privacyInterests"><?php echo $this->privacy['interests']; ?></select></td>
+                            <td>interests</td>
+                            <td class="area"><textarea name="interests" rows="2" cols="52"><?php echo $this->userProfile['interests']; ?></textarea></td>
+                        </tr>
+                        <tr id="filmsTr">
+                            <td><select name="privacyFilms"><?php echo $this->privacy['films']; ?></select></td>
+                            <td>favourite films</td>
+                            <td class="area"><textarea name="films" rows="2" cols="52"><?php echo $this->userProfile['films']; ?></textarea></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>favourite music</td>
+                            <td class="area"><textarea name="music" rows="2" cols="52"><?php echo $this->userProfile['music']; ?></textarea></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>favourite books</td>
+                            <td class="area"><textarea name="books" rows="2" cols="52"><?php echo $this->userProfile['books']; ?></textarea></td>
+                        </tr>
+                        <tr id="quotationsTr">
+                            <td><select name="privacyQuotations"><?php echo $this->privacy['quotations']; ?></select></td>
+                            <td>quotations</td>
+                            <td class="area"><textarea name="quotations" rows="2" cols="52"><?php echo $this->userProfile['quotations']; ?></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <h2>education/work</h2>
+            <div class="pane">
+                <div>
+                    <table id="educationInformationTable">
+                        <tr>
+                            <td id="profileFirstTd"><select name="privacySchool"><?php echo $this->privacy['school']; ?></select></td>
+                            <td  id="profileSecondTd">secondary school</td>
+                            <td id="profileThirdTd"><input type="text" name="school" value="<?php echo $this->userProfile['school']; ?>" size="54px" /></td>
+                        </tr>
+                        <tr id="leavingYearsSchoolTr">
+                            <td></td>
+                            <td>leaving year</td>
+                            <td class="no_border"><select name="leavingYearsSchool"><?php echo $this->leavingYearsSchoolOption; ?></select></td>
+                        </tr>
+                        <tr id="universityTr">
+                            <td><select name="privacyUniversity"><?php echo $this->privacy['university']; ?></select></td>
+                            <td>university</td>
+                            <td><input type="text" name="university" value="<?php echo $this->userProfile['university']; ?>" size="54px" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>leaving year</td>
+                            <td class="no_border"><select name="leavingYearsUniversity"><?php echo $this->leavingYearsUniversityOption; ?></select></td>
+                        </tr>
+                        <tr id="coursesTr">
+                            <td></td>
+                            <td>courses</td>
+                            <td class="area"><textarea name="courses" rows="2" cols="52"><?php echo $this->userProfile['courses']; ?></textarea></td>
+                        </tr>
+                        <tr id="jobsTr">
+                            <td><select name="privacyEmployer"><?php echo $this->privacy['employer']; ?></select></td>
+                            <td>employer</td>
+                            <td class="area"><textarea name="employer" rows="2" cols="52"><?php echo $this->userProfile['employer']; ?></textarea></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>position</td>
+                            <td><input type="text" name="position" value="<?php echo $this->userProfile['position']; ?>" size="54px" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>description</td>
+                            <td class="area"><textarea name="description" rows="2" cols="52"><?php echo $this->userProfile['description']; ?></textarea></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>city</td>
+                            <td><input type="text" name="city" value="<?php echo $this->userProfile['city']; ?>" size="54px" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>since</td>
+                            <td class="no_border"><select name="fromMonths"><?php echo $this->fromMonthsOption; ?></select>
+                                <select name="fromYears"><?php echo $this->fromYearsOption; ?></select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="profile_submit"><input id="submit_div" type="submit" name="save" value="public" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" /></div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#slide").tabs("#slide div.pane", {tabs: 'h2', effect: 'slide', initialIndex: null});
+    });
+</script>

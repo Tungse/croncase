@@ -1,0 +1,79 @@
+<div class="home">
+    <p>&nbsp;</p>
+    <div id="setting">
+        <div id="avatar_div">
+            <div id="avatar_holder"><a href="home?uid=<?php echo $this->user['uid']; ?>"><img id="avatar_img" src="data/users/<?php echo $this->user['md5']; ?>/avatar/avatar.jpg" alt="<?php echo $this->user['info']['name']; ?>"></a></div>
+            <div id="hidden_links">
+                <?php if($this->user['page']) { ?>
+                    <p><a class="thickbox" href="profile?action=account&width=270&height=361">edit my account</a></p>
+                    <p><a class="thickbox" href="user?action=avatar&width=340&height=203">upload my avatar</a></p>
+                    <p><a href="privatemsg?action=view">read my messages</a></p>
+                <?php } else { ?>                   
+                    <?php  if($this->isFriend) { ?>
+                        <p><a class="thickbox" href="friend?action=delete&uid=<?php echo $this->user['uid']; ?>&height=40&width=285">end friendship</a></p>
+                    <?php } elseif($this->requestSend === false) { ?>
+                        <p><a class="thickbox" id="add_friend_link" href="friend?action=request&uid=<?php echo $this->user['uid']; ?>&height=40&width=285">add as friend</a></p>
+                    <?php } else { ?>
+                        <p><small>friendship request sended</small></p>
+                    <?php } ?>
+                    <p><a class="thickbox" id="avatarUploadLink" href="privatemsg?action=write&uid=<?php echo $this->user['uid']; ?>&width=350&height=290">write a message</a></p>
+                    <p><a class="thickbox" id="avatarUploadLink" href="event?action=inviteUser&uid=<?php echo $this->user['uid']; ?>&width=285&height=71">invite to an event</a></p>
+               <?php } ?>
+            </div>
+        </div>
+        <div id="short_info">
+            <?php echo $this->application['shortInfo']; ?>
+        </div>
+        <div id="status">
+            <?php echo $this->application['status']; ?>
+            <!--<a class="thickbox" href="event?action=search&height=40&width=300">search event</a>-->
+        </div>
+    </div>
+    <p>&nbsp;</p>
+    <div id="main_content">
+        <?php if($this->user['page']) { ?>
+            <div id="event_action">
+                <a href="event?action=create&height=235&width=480" class="thickbox"><b>create an event</b></a>&nbsp;
+            </div>
+            <ul class="tabs">
+                <li><a href="calendar">calendar</a></li>
+                <li><a href="event?action=all">my events</a></li>
+                <!--<li><a href="news">news</a></li>-->
+                <li><a href="profile">info</a></li>
+                <!--<li><a href="album">album</a></li>
+                <li><a href="blog">blog</a></li>-->
+            </ul>
+        <?php } else { ?>
+            <ul class="tabs">
+            <?php if($this->showCalender) { ?>
+                    <li><a href="calendar?uid=<?php echo $this->user['uid']; ?>">calendar</a></li>
+                    <li><a href="event?action=all&uid=<?php echo $this->user['uid']; ?>"><?php echo strtolower($this->user['info']['firstname']); ?>'s events</a></li>
+            <?php } ?>
+                <li><a href="profile?uid=<?php echo $this->user['uid']; ?>">info</a></li>
+                <!--<li><a href="album?uid=<?php echo $this->user['uid']; ?>">album</a></li>
+                <li><a href="blog?uid=<?php echo $this->user['uid']; ?>">blog</a></li>-->
+            </ul>
+        <?php } ?>
+        <div class="panes">
+            <span style="display:block"></span>
+        </div>
+    </div>
+    <div id="social_boxes">
+        <div id="friends_box">
+            <?php echo $this->application['friend'];?>
+        </div>
+        <div id="comments_box">
+            <?php echo $this->application['comment'];?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("ul.tabs").tabs("div.panes > span", {effect: 'ajax'});
+        $('#avatar_div').hover(function(){
+            $("#avatar_holder", this).stop().animate({top:'-90px'},{duration:100});
+        }, function() {
+            $("#avatar_holder", this).stop().animate({top:'0px'},{duration:400});
+        });
+    });
+</script>

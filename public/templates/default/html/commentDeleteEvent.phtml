@@ -1,0 +1,9 @@
+<div class="commentDeleteEvent boxes">
+    <form name="commentDeleteEvent" action="" method="POST" enctype="multipart/form-data">
+        <div id="info" class="info_text">
+            <h3>Do you want to delete this comment?</h3>
+        </div>
+        <div id="delete_submit"><input id="submit_div" type="button" onclick="deleteEventComment(<?php echo (int)$_GET['ecid']; ?>);" value="delete" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" /></div>
+    </form>
+</div>

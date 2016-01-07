@@ -1,0 +1,12 @@
+<div id="comment_block">
+    <div id="comment_img">
+        <a href="home?uid=<?php echo $this->commentEvent['wid']; ?>">
+            <img src="data/users/<?php echo md5($this->commentEvent['wid']); ?>/avatar/thumbnail.jpg" alt="<?php echo $this->commentEvent['name']; ?>" title="<?php echo $this->commentEvent['name']; ?>">
+        </a>
+    </div>
+    <div id="comment_content">
+        <a href="home?uid=<?php echo $this->commentEvent['wid']; ?>"><?php echo $this->commentEvent['name']; ?></a>
+        <?php echo $this->commentEvent['comment']; ?>
+        <p id="info"><small id="comment_created"><i><?php echo $this->commentEvent['created']; ?></i></small>
+    </div>
+</div>

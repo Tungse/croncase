@@ -1,0 +1,13 @@
+Hello,
+
+<?php echo $this->name; ?> has invited you to join on <?php echo PROJECT; ?>.
+<?php echo $this->firstname; ?> has wrote:
+
+<?php echo $this->content; ?>
+
+
+please follow this link to join:
+http://www.<?php echo PROJECT; ?>.com/activation?action=friendInvite&h=<?php echo $this->hash; ?>
+
+---------------------------------------------
+sended from www.<?php echo PROJECT; ?>.com

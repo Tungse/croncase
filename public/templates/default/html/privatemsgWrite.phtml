@@ -1,0 +1,14 @@
+<div class="privatemsgWrite boxes">
+    <form name="privatemsg" action="" method="POST" enctype="multipart/form-data">
+        <p id="privatemsg_title">subject:</p>
+        <?php if(isset($this->feedback) && $this->feedback == 'true') { ?>
+            <div id="privatemsg_subject"><input type="text" id="subject" name="subject" readonly value="feedback, bug report ..." size="50px" /></div>
+        <?php } else { ?>
+            <div id="privatemsg_subject"><input type="text" id="subject" name="subject" size="50px" /></div>
+        <?php } ?>
+        <p id="privatemsg_title">content:</p>
+        <div id="privatemsg_textarea"><textarea id="privatemsg" name="privatemsg" rows="14" cols="42"></textarea></div>
+        <div id="privatemsg_submit"><input id="submit_div" type="button" onclick="return checkPrivatemsgInput(<?php echo $this->user['uid']; ?>, <?php echo $this->feedback; ?>);" value="send" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" /></div>
+    </form>
+</div>

@@ -1,0 +1,7 @@
+Hi <?php echo $this->user['firstname']; ?>,
+
+please activate your account with this link:
+http://www.<?php echo PROJECT; ?>.com/activation?action=activation&h=<?php echo $this->hash; ?>
+
+
+your <?php echo PROJECT; ?> team

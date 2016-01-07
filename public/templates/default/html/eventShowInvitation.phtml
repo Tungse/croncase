@@ -1,0 +1,68 @@
+<script type="text/javascript" src="public/js/datepicker.js"></script>
+<link rel="stylesheet" href="public/templates/default/css/datepicker.css" type="text/css" />
+<div class="eventShowInvitation boxes">
+    <div id="info" class="info_text">
+        <h3>invitation to event (<?php echo count($this->invitationList); ?>)</h3>
+        <div id="next_previous_button">
+            <?php if(count($this->invitationList) > 3) { ?>
+                <small onclick="previousInviteEvent();">previous</small>&nbsp;&nbsp;<small onclick="nextInviteEvent();">next</small>
+            <?php } else { echo '&nbsp;'; } ?>
+        </div>
+    </div>
+    <div id="event_invitation_holder">
+        <?php $invitationListLenght = count($this->invitationList); ?>
+            <?php $iDiv  = 0; for($i = 0; $i < $invitationListLenght; $i++) { ?>
+                <?php if($i === 0 || $i%3 == 0) { ?>
+                <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="event_invite_class" id="event_invite<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;">
+                <?php $iDiv++; } ?>
+                <div id="invitation<?php echo $this->invitationList[$i]['iid']; ?>">
+                    <form name="eventShowInvitation" action="event?eid=<?php echo $this->invitationList[$i]['eid']; ?>" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="iid" value="<?php echo base64_encode($this->invitationList[$i]['iid']); ?>">
+                        <input type="hidden" id="attend" name="attend" value="sure">
+                        <input type="hidden" id="privacy" name="privacy" value="3">
+                        <table class="invitation_table">
+                            <tr>
+                                <td id="event_image"><img src="data/users/<?php echo md5($this->invitationList[$i]['owner']); ?>/event/<?php echo $this->invitationList[$i]['eid']; ?>/eventImageSmall.jpg" alt="event" title="<?php echo $this->invitationList[$i]['eventName']; ?>"></td>
+                                <td id="event_info">
+                                    <p id="event_name"><a class="thickbox2" href="event?action=view&eid=<?php echo $this->invitationList[$i]['eid']; ?>&ueid=<?php echo $this->invitationList[$i]['ueid']; ?>&event&confirm=<?php echo $this->invitationList[$i]['iid']; ?>&height=410&width=630"><?php echo $this->invitationList[$i]['eventName']; ?></a></p>                                   
+                                    <p id="event_date">
+                                        <?php if($this->invitationList[$i]['adjustable'] === 'flexible') { ?>
+                                            <input type="text" id="dateFrom<?php echo $i; ?>" name="dateFrom" value="<?php echo $this->invitationList[$i]['dateFrom']; ?>" size="10px">&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <select id="timeFrom" name="timeFrom"><?php echo $this->invitationList[$i]['fromTimeOptions']; ?></select>&nbsp;&nbsp;
+                                            -&nbsp;&nbsp;<select id="timeTo" name="timeTo"><?php echo $this->invitationList[$i]['toTimeOptions']; ?></select>
+                                        <?php } else { ?>
+                                            <input type="text" id="dateFromFix" readonly name="dateFrom" value="<?php echo $this->invitationList[$i]['dateFrom']; ?>" size="10px">&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <select id="timeFrom" name="timeFrom"><option><?php echo $this->invitationList[$i]['timeFrom']; ?></option></select>&nbsp;&nbsp;
+                                            -&nbsp;&nbsp;<select id="timeTo" name="timeTo"><option><?php echo $this->invitationList[$i]['timeTo']; ?></option></select>
+                                        <?php } ?>
+                                    </p>
+                                    <p id="event_inviter"><small><i>invited by </i></small><a href="home?uid=<?php echo $this->invitationList[$i]['uid']; ?>"><?php echo $this->invitationList[$i]['name']; ?></a></p>
+                                </td>
+                                <td id="event_action">                                   
+                                    <div id="event_invite_submit"><input id="submit_div" type="button" onclick="joinEventInvitation(<?php echo $this->invitationList[$i]['eid']; ?>, <?php echo $this->user['myuid']; ?>, <?php echo $this->invitationList[$i]['iid']; ?>);" value="join" name="join" /></div>
+                                    <div id="cancel"><input id="no_div" type="button" onclick="rejectEventInvitation(<?php echo $this->invitationList[$i]['iid']; ?>)" value="no" name="reject" /></div>
+                                    <div id="joined_count">
+                                        <?php if($this->invitationList[$i]['joinedCount'] == 1) { ?>
+                                            <small><b><?php echo $this->invitationList[$i]['joinedCount']; ?></b> attender</small>
+                                        <?php } elseif($this->invitationList[$i]['joinedCount'] > 1) { ?>
+                                            <small><b><?php echo $this->invitationList[$i]['joinedCount']; ?></b> attenders</small>
+                                        <?php } ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <?php if($i === 2 || $i%3 == 2) { ?>
+                    </div>
+                <?php } ?>
+                <script type="text/javascript">
+                    $(function() {
+                        $('#dateFrom<?php echo $i; ?>').jdPicker({date_format:"dd/mm/YYYY", show_week: 1});
+                    });
+                </script>
+            <?php } ?>
+    </div>
+    <div id="cancel_full"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+</div>

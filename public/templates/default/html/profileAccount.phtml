@@ -1,0 +1,117 @@
+<div class="profileAccount boxes">
+    <form name="account" action="" method="POST" enctype="multipart/form-data">
+        <div id="account_holder" style="display:block;">
+            <div id="info" class="info_text">
+                <h3>manage your account and privacy</h3>
+            </div>
+            <table id="account_input">
+                <tr id="title">
+                    <td id="applications"></td>
+                    <td id="options">your account info</td>
+                </tr>
+                <tr>
+                    <td>firstname</td>
+                    <td id="td_firstname"><input id="firstname" name="firstname" type="text" value="<?php echo $this->userAccount['firstname']; ?>" size="25"></td>
+                </tr>
+                <tr>
+                    <td>lastname</td>
+                    <td id="td_lastname"><input id="lastname" name="lastname" type="text" value="<?php echo $this->userAccount['lastname']; ?>" size="25"></td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td id="td_email"><input id="email" readonly name="email" type="text" value="<?php echo $this->userAccount['email']; ?>" size="25"></td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td id="td_password"><input id="password" name="password" type="password" value="" size="25"></td>
+                </tr>
+            </table>
+            <p>&nbsp;</p>
+            <table id="privacy_select">
+                <tr id="title">
+                    <td id="applications"></td>
+                    <td id="options">visibility of your page</td>
+                </tr>
+                <tr>
+                    <td>calendar</td>
+                    <td>
+                        <select id="calendar">
+                            <?php echo $this->privacy['calendar']; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>status</td>
+                    <td>
+                        <select id="status">
+                            <?php echo $this->privacy['status']; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>comments</td>
+                    <td>
+                        <select id="comment">
+                            <?php echo $this->privacy['comment']; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>friends</td>
+                    <td>
+                        <select id="friend">
+                            <?php echo $this->privacy['friend']; ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <p id="show_button" onclick="showNotificationSetting();"><small><i>show notification setting</i></small></p>
+        </div>
+        <div id="notification_holder" style="display:none;">
+            <div id="info" class="info_text">
+                <h3>manage your email notification</h3>
+            </div
+            <table id="notification_input">
+                <tr id="title">
+                    <td id="notifications"></td>
+                    <td id="options">get email notification for ...</td>
+                </tr>
+                <tr>                    
+                    <td><?php echo $this->notification['comment']; ?></td>
+                    <td>comment on your page</td>
+                </tr>
+                <tr>                   
+                    <td><?php echo $this->notification['commentSub']; ?></td>
+                    <td>comment on your comment</td>
+                </tr>               
+                <tr>
+                    <td><?php echo $this->notification['eventComment']; ?></td>
+                    <td>comment on an event</td>
+                </tr>
+                <tr>
+                    <td><?php echo $this->notification['eventInvite']; ?></td>
+                    <td>event invitation</td>
+                </tr>
+                <tr>                   
+                    <td><?php echo $this->notification['eventRequest']; ?></td>
+                    <td>event invitation request</td>
+                </tr>
+                <tr>
+                    <td><?php echo $this->notification['eventUpdate']; ?></td>
+                    <td>event update</td>
+                </tr>
+                <tr>                   
+                    <td><?php echo $this->notification['privateMessage']; ?></td>
+                    <td>private message</td>
+                </tr>
+                <tr>                    
+                    <td><?php echo $this->notification['friendRequest']; ?></td>
+                    <td>friend request</td>
+                </tr>
+            </table>
+            <p id="show_button" onclick="showAccountSetting();"><small><i>show account setting</i></small></p>
+        </div>
+        <div id="account_submit"><input id="submit_div" type="button" onclick="return checkAccountEditInput();" id="submit" value="update" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no"/></div>
+    </form>
+</div>

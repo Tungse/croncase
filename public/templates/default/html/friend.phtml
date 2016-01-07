@@ -1,0 +1,46 @@
+<div class="friend">
+    <div id="mutuals">
+        <?php if($this->user['page'] === false) {
+            if($this->mutualFriendCount > 1) { ?>
+                <h3 id="friend_numbers">
+                    <a class="thickbox" href="friend?action=mutual&uid=<?php echo $this->user['uid']; ?>&width=300&height=380"><?php echo $this->mutualFriendCount; ?> mutual friends</a>
+                </h3>
+            <?php } elseif($this->mutualFriendCount == 1) { ?>
+            	<h3 id="friend_numbers">
+                    <a class="thickbox" href="friend?action=mutual&uid=<?php echo $this->user['uid']; ?>&width=300&height=380"><?php echo $this->mutualFriendCount; ?> mutual friend</a>
+                </h3>
+            <?php } ?>
+            <div id="friend_list">
+                <?php foreach($this->mutualFriendInfoArray as $mutualFriendInfoArray) { ?>
+                    <div id="single">
+                        <div id="friend_holder">
+                            <div id="friend_img"><a href="home?uid=<?php echo $mutualFriendInfoArray['uid']; ?>"><img src="data/users/<?php echo md5($mutualFriendInfoArray['uid']); ?>/avatar/friend.jpg" title="<?php echo $mutualFriendInfoArray['name']; ?>" alt="<?php echo $mutualFriendInfoArray['name']; ?>"></a></div>
+                            <div id="friend_name"><a href="home?uid=<?php echo $mutualFriendInfoArray['uid']; ?>"><?php echo $mutualFriendInfoArray['name']; ?></a><br></div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+       <?php } ?>
+    </div>
+    <div id="friends">
+        <?php if($this->friendCount > 1) { ?>
+            <h3 id="friend_numbers">
+                <a class="thickbox" href="friend?action=all&uid=<?php echo $this->user['uid']; ?>&width=300&height=380"><?php echo $this->friendCount; ?> friends</a>
+            </h3>
+        <?php } elseif($this->friendCount == 1) { ?>
+        	<h3 id="friend_numbers">
+                <a class="thickbox" href="friend?action=all&uid=<?php echo $this->user['uid']; ?>&width=300&height=380"><?php echo $this->friendCount; ?> friend</a>
+            </h3>
+        <?php } ?>
+        <div id="friend_list">
+            <?php foreach($this->friendInfoArray as $friendInfoArray) { ?>
+                <div id="single">
+                    <div id="friend_holder">
+                        <div id="friend_img"><a href="home?uid=<?php echo $friendInfoArray['uid']; ?>"><img src="data/users/<?php echo md5($friendInfoArray['uid']); ?>/avatar/friend.jpg" title="<?php echo $friendInfoArray['name']; ?>" alt="<?php echo $friendInfoArray['name']; ?>"></a></div>
+                        <div id="friend_name"><a href="home?uid=<?php echo $friendInfoArray['uid']; ?>"><?php echo $friendInfoArray['name']; ?></a></div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>

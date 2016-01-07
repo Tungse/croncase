@@ -1,0 +1,27 @@
+<div class="uploadAvatar boxes">
+    <form name="avatar" action="user" method="POST" enctype="multipart/form-data">
+        <div id="avatar_block">
+            <div id="image"><img src="data/users/<?php echo $this->user['md5']; ?>/avatar/friend.jpg" alt="<?php echo $this->user['myinfo']['name']; ?>"></div>
+            <div id="input">
+                <small>your uploaded avatar should not be bigger than <br><b>1 MB</b></small><br>
+                <small id="button_info"><i>upload avatar:</i></small>
+                <p id="upload_input"><input type="file" name="avatar" size="20" value="" /></p>
+            </div>
+        </div>
+        <div id="background_block">
+            <div id="image"><img src="data/users/<?php echo $this->user['md5']; ?>/home/background.jpg" alt="background image"></div>
+            <div id="input">
+                <small>your uploaded background image should not be bigger than <b>1 MB</b></small><br>
+                <small id="button_info"><i>upload background:</i></small>
+                <p id="upload_input"><input type="file" name="background" size="20" value="" /></p>
+            </div>
+        </div>
+        <div id="delete_block">
+            <?php if($this->background === true) { ?>
+                <input type="checkbox" name="no_background" value="true" />&nbsp;delete current background
+            <?php } ?>
+        </div>
+        <div id="upload_submit"><input id="submit_div" type="submit" value="public" name="upload" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no"/></div>
+    </form>
+</div>

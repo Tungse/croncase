@@ -1,0 +1,114 @@
+<script type="text/javascript" src="public/js/datepicker.js"></script>
+<script type="text/javascript" src="public/js/box2.js"></script>
+<div class="searchResult">
+    <div class="search_left_side">
+        <div id="advance_search_options">
+            <div id="advance_info">
+                <h4>advance search options</h4>
+            </div>
+            <form name="event" action="search" method="POST" enctype="multipart/form-data">
+                <table id="advance_search_table">
+                    <tr>
+                        <td>event date</td>
+                        <td><div class="search_input" id="from_input"><input type="text" id="dateFrom2" name="from" value="<?php echo $this->searchAdvanceKeyword['from']; ?>" size="10px"></div></td>
+                    </tr>
+                    <tr>
+                        <td>event name</td>
+                        <td><div class="search_input" id="event_name_input"><input type="text" name="eventName" value="<?php echo $this->searchAdvanceKeyword['eventName']; ?>" size="30px" /></div></td>
+                    </tr>
+                    <tr>
+                        <td>event location</td>
+                        <td><div class="search_input" id="location_input"><input type="text" name="location" value="<?php echo $this->searchAdvanceKeyword['location']; ?>" size="30px" /></div></td>
+                    </tr>
+                    <tr>
+                        <td>event creator</td>
+                        <td><div class="search_input" id="owner_input"><input type="text" name="owner" value="<?php echo $this->searchAdvanceKeyword['owner']; ?>" size="30px" /></div></td>
+                    </tr>
+                </table>
+                <div id="advance_search_submit"><input id="submit_div" onclick="return checkAdvanceSearchInput();" type="submit" value="search" name="searchAdvance" /></div>
+            </form>
+        </div>
+        <div id="money_holder">
+            coca cola
+        </div>
+    </div>
+    <div id="search_result_content">
+        <div id="event_search">
+            <div class="info_text">
+                <h3>event search result (<?php echo count($this->eventSearch); ?>)</h3>
+                <div id="next_previous_button">&nbsp;
+                <?php if(count($this->eventSearch) > 5) { ?>
+                    <small onclick="previousEventSearch();">previous</small>&nbsp;&nbsp;<small onclick="nextEventSearch();">next</small>
+                <?php } ?>
+                </div>
+            </div>
+            <?php $i = 0; $iDiv  = 0; foreach($this->eventSearch as $eventSearch) { ?>
+                <?php if($i === 0 || $i%5 == 0) { ?>
+                <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                    <div class="event_class" id="event<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;max-height:480px;">
+                <?php $iDiv++; } ?>
+                <div id="event_block">
+                    <div id="event_image">
+                        <a class="thickbox" href="event?action=view&uid=<?php echo $eventSearch['owner']; ?>&eid=<?php echo $eventSearch['eid']; ?>&event&height=410&width=630"><img src="data/users/<?php echo md5($eventSearch['owner']); ?>/event/<?php echo $eventSearch['eid']; ?>/eventImageSmall.jpg" alt="event" title="<?php echo $eventSearch['eventName']; ?>"></a>
+                    </div>
+                    <div id="event_info">
+                        <p><b><a class="thickbox" href="event?action=view&uid=<?php echo $eventSearch['owner']; ?>&eid=<?php echo $eventSearch['eid']; ?>&event&height=410&width=630"><?php echo $eventSearch['eventName']; ?></a></b></p>
+                        <p id="event_description"><?php echo substr($eventSearch['description'], 0, 180).' ...'; ?></p>
+                        <p id="event_date"><small>
+                            <?php echo application_frontend_event_view::correctDateFormat($eventSearch['dateFrom']); ?>&nbsp;&nbsp;
+                            from&nbsp;<?php echo $eventSearch['timeFrom']; ?>&nbsp;
+                            to&nbsp;<?php echo $eventSearch['timeTo']; ?>&nbsp;&nbsp;
+                            by&nbsp;<i id="event_owner"><a href="home?uid=<?php echo $eventSearch['owner']; ?>"><?php echo $eventSearch['name']; ?></a></i>
+                        </small></p>
+                    </div>
+                </div>
+                <?php if($i === 4 || $i%5 == 4) { ?>
+                    </div>
+                <?php } ?>
+            <?php $i++; } ?>
+            <?php if(($i < 4 && $i > 0) || $i%5 != 0) { echo '</div>'; } ?>
+        </div>
+        <div id="user_search">
+            <div class="info_text">
+                <h3>user search result (<?php echo count($this->userSearch); ?>)</h3>
+                <div id="next_previous_button">&nbsp;
+                    <?php if(count($this->userSearch) > 8) { ?>
+                        <small onclick="previousUserSearch();">previous</small>&nbsp;&nbsp;<small onclick="nextUserSearch();">next</small>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php if(count($this->userSearch) > 0) { ?>
+                <?php $i = 0; $iDiv  = 0; foreach($this->userSearch as $userSearch) { ?>
+                    <?php if($i === 0 || $i%8 == 0) { ?>
+                    <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                        <div class="user_class" id="user<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:280px;">
+                    <?php $iDiv++; } ?>
+                    <div id="user_block">
+                        <div id="user_img"><a href="home?uid=<?php echo $userSearch['uid']; ?>"><img src="data/users/<?php echo md5($userSearch['uid']); ?>/avatar/thumbnail.jpg" title="<?php echo $userSearch['name']; ?>" alt="<?php echo $userSearch['name']; ?>"></a></div>
+                        <div id="user_info">
+                            <p><a href="home?uid=<?php echo $userSearch['uid']; ?>"><?php echo $userSearch['name']; ?></a></p>
+                            <?php if($userSearch['eventCount'] == 0) { ?>
+                                <p id="user_event_count"><small><i><?php echo $userSearch['firstname']; ?> doesn't have any event in this week</i></small></p>
+                            <?php } elseif($userSearch['eventCount'] == 1) { ?>
+                                <p id="user_event_count"><small><i><?php echo $userSearch['firstname']; ?> has joined <b><?php echo $userSearch['eventCount']; ?></b> event in this week</i></small></p>
+                            <?php } else { ?>
+                                <p id="user_event_count"><small><i><?php echo $userSearch['firstname']; ?> has joined <b><?php echo $userSearch['eventCount']; ?></b> events in this week</i></small></p>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <?php if($i === 7 || $i%8 == 7) { ?>
+                        </div>
+                    <?php } ?>
+                <?php $i++; } ?>
+                <?php if(($i < 7 && $i > 0) || $i%8 != 0) { echo '</div>'; } ?>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(function() {
+            $('#dateFrom2').jdPicker({date_format:"dd/mm/YYYY", show_week: 1});
+        });
+    });
+</script>

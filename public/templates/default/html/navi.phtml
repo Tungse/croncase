@@ -1,0 +1,18 @@
+<div class="navi">
+<?php if($this->user['login']) { ?>
+        <!--<div id="logo">
+            <a href="home"><img src="public/templates/default/images/logo.png" alt="<?php echo ucwords(PROJECT); ?>"></a>
+        </div>-->
+        <div id="search">
+            <div id="home_button"><form action="home" method=""><input type="submit" id="home_link" value="home"></form></div>
+            <?php echo $this->application['search'];?>
+        </div>
+<?php } else { ?>
+        <!--<div id="logo">
+            <a href="index"><img src="public/templates/default/images/logo.png" alt="<?php echo ucwords(PROJECT); ?>"></a>
+        </div>-->
+        <div id="login">
+            <?php echo $this->application['login']; ?>
+        </div>
+<?php } ?>
+</div>

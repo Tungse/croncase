@@ -1,0 +1,12 @@
+<div class="friendInvite boxes">
+    <form name="invite" action="" method="POST" enctype="multipart/form-data">
+        <p id="invite_title">email address:</p>
+        <div id="invite_email"><input type="text" id="email" name="email" size="50px" /></div>
+        <p id="invite_title">content:</p>
+        <div id="invite_textarea"><div id="invite_system_text">Hi,<br><br><?php echo $this->user['myinfo']['name']; ?> has invited you to join on <?php echo PROJECT; ?>.com<br><?php echo $this->user['myinfo']['firstname']; ?> has wrote:<br><br></div>
+            <textarea id="content_text" name="invite" rows="8" cols="42"></textarea>
+        </div>
+        <div id="invite_submit"><input id="submit_div" type="button" onclick="return checkFriendInviteInput('.friendInvite #email');" value="send" /></div>
+        <div id="cancel"><input id="no_div" type="button" onclick="tb_remove();" value="no" /></div>
+    </form>
+</div>

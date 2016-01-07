@@ -1,0 +1,30 @@
+<div class="eventUnreadComment boxes">
+    <div id="info" class="info_text">
+        <h3>unreaded comment on event (<?php echo count($this->unreadComment); ?>)</h3>
+        <div id="next_previous_button">
+            <?php if(count($this->unreadComment) > 4) { ?>
+                <small onclick="previousUnreadEventComment();">previous</small>&nbsp;&nbsp;<small onclick="nextUnreadEventComment();">next</small>
+            <?php } else { echo '&nbsp;'; } ?>
+        </div>
+    </div>
+    <div id="unread_comment_holder">
+    <?php $i = 0; $iDiv  = 0; foreach($this->unreadComment as $unreadComment) { ?>
+        <?php if($i === 0 || $i%4 == 0) { ?>
+            <?php if($i === 0) { $display = 'block'; } else { $display = 'none'; } ?>
+                <div class="unread_comment_class" id="unreadComment<?php echo $iDiv; ?>" style="display:<?php echo $display; ?>;height:320px;">
+        <?php $iDiv++; } ?>
+        <div id="unread_comment_block">
+            <div id="friend_img"><a href="home?uid=<?php echo $unreadComment['uid']; ?>"><img src="data/users/<?php echo md5($unreadComment['uid']); ?>/avatar/thumbnail.jpg" title="<?php echo $unreadComment['name']; ?>" alt="<?php echo $unreadComment['name']; ?>"></a></div>
+            <div id="unread_comment_content">
+                <p><a href="home?uid=<?php echo $unreadComment['uid']; ?>"><?php echo $unreadComment['name']; ?></a> has wrote on <a class="thickbox2" href="event?action=view&eid=<?php echo $unreadComment['eid']; ?>&ueid=<?php echo $unreadComment['ueid']; ?>&event&height=410&width=630"><b><?php echo $unreadComment['eventName']; ?></b></a></p>
+                <p id="unread_comment"><i><?php echo substr($unreadComment['comment'], 0, 60); ?>...</i>&nbsp;&nbsp;<small><a class="thickbox2" href="event?action=view&eid=<?php echo $unreadComment['eid']; ?>&ueid=<?php echo $unreadComment['ueid']; ?>&event&showComment&height=410&width=630">(more)</a></small></p>
+                <p id="unread_date"><small><?php echo $unreadComment['created']; ?></small></p>
+            </div>
+        </div>
+        <?php if($i === 3 || $i%4 == 3) { ?>
+            </div>
+        <?php } ?>
+    <?php $i++; } ?>
+    </div>
+    <div id="cancel_full"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+</div>

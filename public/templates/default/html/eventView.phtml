@@ -1,0 +1,86 @@
+<script type="text/javascript" src="public/js/datepicker.js"></script>
+<div class="eventView boxes">
+    <div id="event_main" style="<?php echo $this->eventMainDisplay; ?>">
+        <form name="event" action="event?ueid=<?php echo $this->ueid; ?>&eid=<?php echo $this->event['eid']; ?>" method="POST" enctype="multipart/form-data">
+            <div id="event_main_left">
+                <div id="event_img"><img src="data/users/<?php echo md5($this->event['owner']); ?>/event/<?php echo $this->event['eid']; ?>/eventImage.jpg" alt="<?php echo $this->event['name']; ?>" title="<?php echo $this->event['name']; ?>"></div>
+                <div id="attending_status"><?php if($this->joined) { ?>
+                    <small id="joined"> - you are attending - </small>
+                <?php } elseif(!$this->joined && !$this->event['need_invitation']) { ?>
+                    <small id="not_joined"> - you are not attending - </small>
+                <?php } else { ?>
+                    <small id="need_invitation"> - need an invitation - </small>
+                <?php } ?>
+                </div>
+                <div id="event_radio_option"><?php echo $this->event['attending']; ?></div>
+                <div id="event_privacy"><?php echo $this->event['privacy']; ?></div>             
+                <div id="attenders">
+                    <p><b>people attending (<?php echo $this->attenders['count']; ?>)</b></p>
+                    <?php foreach($this->attenders as $attender) { ?>
+                        <p><a href="home?uid=<?php echo $attender['uid']; ?>"><?php echo $attender['name']; ?></a></p>
+                    <?php } ?>
+                </div>
+            </div>
+            <div id="event_main_right">
+                <div id="event_name">
+                    <?php echo $this->event['name']; ?>
+                </div>               
+                <div id="event_address"><?php echo $this->event['address']; ?>&nbsp;<i id="event_location"><?php echo $this->event['location']; ?></i></div>
+                <div id="event_date">
+                    <input type="text" <?php echo $this->event['fixedDate']; ?> <?php echo $this->event['readonly']; ?> name="dateFrom" value="<?php echo $this->event['dateFrom']; ?>" size="10px">&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;<select id="timeFrom" name="timeFrom"><?php echo $this->event['timeFrom']; ?></select>&nbsp;&nbsp;-&nbsp;
+                    <select id="timeTo" name="timeTo"><?php echo $this->event['timeTo']; ?></select>
+                    <?php echo $this->event['fixedTime']; ?>
+                </div>               
+                <p id="event_seperator">&nbsp;</p>
+                <div id="event_feedback">
+                    <i id="show_event_page"><a href="view?eid=<?php echo str_replace('=', '', base64_encode($this->event['eid'])); ?>" target="_blank">public page</a></i>
+                    <?php if($this->event['address'] != '') { ?>
+                        <i onclick="showEventMap('<?php echo $this->event['address']; ?>', '<?php echo $this->event['name']; ?>', '<?php echo $this->event['dateFrom']; ?>');" id="show_map">show map</i>
+                    <?php } ?>
+                    <i onclick="showEventComment();" id="show_comment">comments (<?php echo $this->event['commentCount']; ?>)</i>
+                </div>
+                <div id="event_description"><div id="event_description_block"><?php echo $this->event['description']; ?></div></div>
+                <div id="event_website"><small><i><?php echo $this->event['website']; ?></i></small></div>
+                <div id="event_owner">
+                    <a href="home?uid=<?php echo $this->event['owner']; ?>">
+                        <small>by <?php echo $this->event['firstname'].' '.$this->event['lastname']; ?>
+                            <?php if($this->event['owner'] == $this->user['myuid']) { ?>
+                                &nbsp;<a class="thickbox2" href="event?action=edit&eid=<?php echo $this->event['eid']; ?>&uid=<?php echo $this->user['myuid']; ?>&height=235&width=480"><font color="#F00">(edit your event)</font></a>
+                            <?php } ?>
+                        </small>
+                    </a>
+                </div>                              
+                <div id="event_button">
+                    <?php if(isset($this->iid)) { ?>
+                        <div id="confirm_submit"><input id="submit_div" type="button" onclick="confirmEventInvitation(<?php echo $this->event['eid']; ?>, <?php echo $this->user['myuid']; ?>, <?php echo $this->iid; ?>)" value="confirm" name="confirm" /></div>
+                        <div id="reject_submit"><input id="submit_div" type="button" onclick="rejectEventViewInvitation(<?php echo $this->iid; ?>);" value="reject" name="reject" /></div>
+                        <div id="cancel_event"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+                    <?php } else { ?>
+                        <?php echo $this->event['update_join_button']; ?>
+                        <?php echo $this->event['duplicate_button']; ?>
+                        <?php echo $this->event['cancel_button']; ?>
+                    <?php } ?>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="event_comment" style="<?php echo $this->eventCommentDisplay; ?>">
+        <?php echo $this->commentEvent; ?>        
+        <div id="cancel_full"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+    </div>
+    <div id="event_map" style="display:none;">
+        <div id="event_map_content"></div>
+        <i onclick="hideEventMap();" id="hide_map">back to event</i>
+        <div id="cancel_full"><input id="no_div" type="button" onclick="tb_remove();" value="close" /></div>
+    </div>
+    <div id="event_blog" style="display:none;">
+    </div>
+    <div id="event_picture" style="display:none;">
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $('#dateFrom').jdPicker({date_format:"dd/mm/YYYY", show_week: 1});
+    });
+</script>

@@ -1,0 +1,8 @@
+Hello,
+
+<?php echo $this->name; ?> has invited you to an event on www.<?php echo PROJECT; ?>.com
+please follow this link:
+http://www.<?php echo PROJECT; ?>.com/activation?action=eventInvite&h=<?php echo $this->hash; ?>
+and check out what it's all about.
+
+your <?php echo PROJECT; ?> team

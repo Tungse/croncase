@@ -1,0 +1,59 @@
+<script type="text/javascript" src="public/js/datepicker.js"></script>
+<div class="eventCreate eventEdit boxes">
+    <form name="event" action="event?eid=<?php echo $this->eid; ?>&uid=<?php echo (int)$_GET['uid']; ?>" method="POST" enctype="multipart/form-data">
+        <div id="slideEvent">
+            <h2 class="current">main information <small><i> (*name and date required)</i></small></h2>
+            <div class="paneEvent" id="eventEdit" style="display:block">
+                <table id="eventTable">
+                    <tr><td>event name</td>
+                        <td id="name_input"><input type="text" id="name" name="name" value="<?php echo $this->event['name']; ?>" onKeyDown="limitText(this.form.name,this.form.countdown,64);" onKeyUp="limitText(this.form.name,this.form.countdown,64);" size="50px" />
+                            <small><i><input id="word_count" readonly type="text" name="countdown" size="1" value="<?php echo $this->eventNameCount; ?>"></i></small>
+                        </td></tr>
+                    <tr><td>address</td><td id="address_input"><input type="text" name="address" value="<?php echo $this->event['address']; ?>" size="55px" /></td></tr>
+                    <tr>
+                        <td>date</td>
+                        <td><input type="text" id="dateFrom" name="dateFrom" value="<?php echo $this->event['dateFrom']; ?>" size="10px">&nbsp;&nbsp;&nbsp;
+                            <select name="timeFrom">
+                                <?php echo $this->fromTimeOptions; ?>
+                            </select>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;
+                            <select name="timeTo"><?php echo $this->toTimeOptions; ?></select>&nbsp;&nbsp;
+                            <input type="checkbox" name="adjustable" <?php echo $this->fixedTimeChecked; ?> value="fixed" />&nbsp;<small><i>(not changable)</i></small>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <h2>descriptions</h2>
+            <div class="paneEvent">
+                <table id="eventTable">
+                    <tr><td>location</td><td id="location_input"><input type="text" name="location" value="<?php echo $this->event['location']; ?>" size="55px" /></td></tr>
+                    <tr><td>website</td><td id="website_input"><input type="text" name="website" value="<?php echo $this->event['website']; ?>" size="55px" /></td></tr>
+                    <tr><td>picture</td><td><input type="file" name="image" value="" /></td></tr>
+                    <tr><td>description</td><td id="description_input"><textarea name="description" rows="2" cols="47"><?php echo $this->event['description']; ?></textarea></td></tr>
+                </table>
+            </div>
+            <h2>options</h2>
+            <div class="paneEvent">
+                <table id="eventTable">
+                    <tr>
+                        <td>joinable</td>
+                        <td><select name="joinable"><?php echo $this->joinable; ?></select></td>
+                    </tr>
+                    <tr>
+                        <td>searchable</td>
+                        <td><select name="searchable"><?php echo $this->searchable; ?></select></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="create_event"><input id="submit_div" onclick="return checkEventInput();" type="submit" value="edit event" name="edit" /></div>
+        <div id="no_event"><input id="no_div" type="button" onclick="tb_remove();" value="no" id="cancel" /></div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#slideEvent").tabs("#slideEvent div.paneEvent", {tabs: 'h2', effect: 'slide', initialIndex: null});
+        $(function() {
+            $('#dateFrom').jdPicker({date_format:"dd/mm/YYYY", show_week: 1});
+        });
+    });
+</script>
